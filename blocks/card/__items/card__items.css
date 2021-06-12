@@ -1,0 +1,4 @@
+.card__items{
+  display: flex;
+  justify-content: space-around;
+}
