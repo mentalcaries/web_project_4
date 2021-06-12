@@ -15,11 +15,3 @@ close.addEventListener("click", showPopup);
 
 
 
-//<button onclick="myFunction()">Click me</button>
-
-// function showPopup() {
-//     document.getElementById("edit").innerHTML = "Hello World";
-// }
-
-
-

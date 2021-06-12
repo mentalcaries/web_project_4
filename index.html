@@ -93,16 +93,17 @@
 
         </section>
 
-         <div class="popup">
+         <div class="popup *popup_visible">
            <div class="popup__container">
             <button class="close-btn" type="button">X</button>
              <h3 class="popup__title">Edit profile</h3>
              <form class="popup__form" name="register">
-              <input type="text" name="name" placeholder="Jacques Cousteau">
-              <input type="text" name="title" placeholder="Explorer">
-               <button type="submit">Save</button>
+              <input type="text" name="name" placeholder="Jacques Cousteau" class="popup__field">
+              <input type="text" name="title" placeholder="Explorer" class="popup__field">
+              <button type="submit" class="popup__save-btn">Save</button>
             </form>
            </div>
+           <div class="popup__overlay"></div>
          </div>
       </main>
 
