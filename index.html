@@ -25,8 +25,10 @@
         <section class="profile">
           <img src="./images/Avatar.jpg" alt="User profile pic" class="profile__image">
           <div class="profile__info">
-            <h1 class="profile__name">Jacques Cousteau<img src="./images/Edit Button.svg" alt="Edit Button"
-                class="profile__edit-btn"></h1>
+            <h1 class="profile__name">Jacques Cousteau
+              <button class="profile__edit-btn"><img src="./images/Edit Button.svg" alt=""></button>
+             
+              </h1>
             <p class="profile__subtitle">Explorer</p>
           </div>
 
@@ -91,6 +93,17 @@
 
         </section>
 
+         <div class="popup">
+           <div class="popup__container">
+            <button class="close-btn" type="button">X</button>
+             <h3 class="popup__title">Edit profile</h3>
+             <form class="popup__form" name="register">
+              <input type="text" name="name" placeholder="Jacques Cousteau">
+              <input type="text" name="title" placeholder="Explorer">
+               <button type="submit">Save</button>
+            </form>
+           </div>
+         </div>
       </main>
 
       <footer class="footer">
