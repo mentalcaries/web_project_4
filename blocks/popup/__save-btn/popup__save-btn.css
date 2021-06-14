@@ -6,4 +6,12 @@
   background: #000000;
   border-radius: 2px;
   color: #fff;
+  cursor: pointer;
+  transition: ease-in 0.3s;
+ 
+}
+
+
+.popup__save-btn:hover {
+  opacity: 0.8;
 }

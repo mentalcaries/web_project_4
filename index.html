@@ -25,15 +25,13 @@
         <section class="profile">
           <img src="./images/Avatar.jpg" alt="User profile pic" class="profile__image">
           <div class="profile__info">
-            <h1 class="profile__name">Jacques Cousteau
-              <button class="profile__edit-btn"><img src="./images/Edit Button.svg" alt=""></button>
-             
-              </h1>
+            <div class="profile__title"><h1 class="profile__name">Jacques Cousteau</h1>
+            <div class="profile__edit-btn hover-animate"><img src="./images/Edit Button.svg" alt=""></div></div>
             <p class="profile__subtitle">Explorer</p>
           </div>
-
-          <img src="./images/Add Button.svg" alt="Add Button" class="profile__add-btn">
+          <img src="./images/Add Button.svg" alt="Add Button" class="profile__add-btn hover-animate">
         </section>
+
 
         <section class="elements">
 
@@ -47,8 +45,7 @@
           </div>
 
           <div class="card">
-            <img src="./images/psl.jpg"
-              alt="Pier overlooking the water" class="card__image">
+            <img src="./images/psl.jpg" alt="Pier overlooking the water" class="card__image">
             <div class="card__items">
               <p class="card__title">Port St Lucie</p>
               <img src="./images/heartVector.svg" alt="Heart Button" class="card__icon">
@@ -56,8 +53,7 @@
           </div>
 
           <div class="card">
-            <img src="./images/staurt.jpg"
-              alt="Orange Sunset on a cool evening in Stuart" class="card__image">
+            <img src="./images/staurt.jpg" alt="Orange Sunset on a cool evening in Stuart" class="card__image">
             <div class="card__items">
               <p class="card__title">Stuart</p>
               <img src="./images/heartVector.svg" alt="Heart Button" class="card__icon">
@@ -65,8 +61,7 @@
           </div>
 
           <div class="card">
-            <img src="./images/ftpierce.jpg"
-              alt="Sunset overlooking the bay" class="card__image">
+            <img src="./images/ftpierce.jpg" alt="Sunset overlooking the bay" class="card__image">
             <div class="card__items">
               <p class="card__title">Fort Pierce</p>
               <img src="./images/heartVector.svg" alt="Heart Button" class="card__icon">
@@ -74,8 +69,7 @@
           </div>
 
           <div class="card">
-            <img src="./images/chag.jpg"
-              alt="Sunset in the distance, boats in the harbour" class="card__image">
+            <img src="./images/chag.jpg" alt="Sunset in the distance, boats in the harbour" class="card__image">
             <div class="card__items">
               <p class="card__title">Chaguaramas Bay Marina</p>
               <img src="./images/heartVector.svg" alt="Heart Button" class="card__icon">
@@ -93,20 +87,21 @@
 
         </section>
 
-         <div class="popup">
-           <div class="popup__container">
-             <button class="popup__close-btn" type="button">
-               <img src="./images/Close Icon.svg" alt="Close icon">
-              </button>
-             <h3 class="popup__title">Edit profile</h3>
-             <form class="popup__form" name="register">
-              <input type="text" name="name" placeholder="Jacques Cousteau" class="popup__field">
-              <input type="text" name="title" placeholder="Explorer" class="popup__field">
-              <button type="submit" class="popup__save-btn">Save</button>
+        <div class="popup">
+          <div class="popup__container">
+            <button class="popup__close-btn hover-animate" type="button">
+              <img src="./images/Close Icon.svg" alt="Close icon">
+            </button>
+            <h3 class="popup__title">Edit profile</h3>
+            <form class="popup__form" name="Edit">
+              <input type="text" name="name" id="popup_name" placeholder="Name (eg. Jacques Cousteau"
+                class="popup__field">
+              <input type="text" name="title" id="popup_title" placeholder="Title (eg. Explorer)" class="popup__field">
+              <button class="popup__save-btn">Save</button>
             </form>
-           </div>
-           <div class="popup__overlay"></div>
-         </div>
+          </div>
+          <div class="popup__overlay"></div>
+        </div>
       </main>
 
       <footer class="footer">
