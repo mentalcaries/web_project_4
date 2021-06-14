@@ -8,3 +8,10 @@
   right: -32px;
   cursor: pointer;
 }
+
+@media screen and (max-width: 580px) {
+  .popup__close-btn{
+ right: 0;
+ top: -60px;
+  }
+}

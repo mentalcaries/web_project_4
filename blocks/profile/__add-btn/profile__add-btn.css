@@ -2,3 +2,10 @@
   margin-left: auto;
   cursor: pointer;
 }
+
+@media screen and (max-width: 680px) {
+  .profile__add-btn {
+    margin-left: unset;
+    max-width: 282px;
+  }
+}
