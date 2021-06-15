@@ -1,6 +1,11 @@
 .card__icon{
+  background-image: url(../../../images/heartVector.svg);
+  height: 19px;
+  width: 21px;
   cursor: pointer;
-  transition: ease-in 0.3s;
+  transition: ease-in 0.2s;
+  align-self: center;
+ 
 }
 
 .card__icon:hover {

@@ -2,6 +2,7 @@
   height: 24px;
   /* padding: 16px 18px 0px; */
   padding-left: 16px;
+  padding-right: 48px;
   background: #000;
   border: none;
   cursor: pointer;
@@ -10,5 +11,7 @@
 @media screen and (max-width: 640px) {
   .profile__edit-btn {
     height: 18px;
+    padding-left: 10px;
+    padding-right: 0;
   }
 }

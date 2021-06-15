@@ -4,6 +4,7 @@ let editBtn = document.querySelector(".profile__edit-btn");
 let closeBtn = document.querySelector(".popup__close-btn");
 let saveBtn = document.querySelector(".popup__save-btn");
 let overlay = document.querySelector(".popup__overlay");
+let likeBtn = document.querySelector(".card__icon");
 
 //Page Text
 let profileName = document.querySelector(".profile__name");
@@ -32,6 +33,7 @@ function saveInfo(evt) {
   profileTitle.textContent = popupTitle.value;
   hidePopup();
 }
+
 
 editBtn.addEventListener("click", showPopup);
 closeBtn.addEventListener("click", hidePopup);
