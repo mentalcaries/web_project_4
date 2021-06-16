@@ -3,7 +3,6 @@ let popupForm = document.querySelector(".popup");
 let editBtn = document.querySelector(".profile__edit-btn");
 let closeBtn = document.querySelector(".popup__close-btn");
 let saveBtn = document.querySelector(".popup__save-btn");
-let overlay = document.querySelector(".popup__overlay");
 let likeBtn = document.querySelector(".card__icon");
 
 //Page Text
@@ -37,7 +36,6 @@ function saveInfo(evt) {
 
 editBtn.addEventListener("click", showPopup);
 closeBtn.addEventListener("click", hidePopup);
-overlay.addEventListener("click", hidePopup);
 saveBtn.addEventListener("click", saveInfo);
 
 // On form opening:

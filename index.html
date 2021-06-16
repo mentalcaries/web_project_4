@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Practicum Project 4: Javascript Begins!">
   <meta name="author" content="Devin Jaggernauth, Web Dev Student">
   <link rel="stylesheet" href="./pages/index.css">
@@ -27,85 +27,83 @@
           <div class="profile__info">
             <div class="profile__title">
               <h1 class="profile__name">Jacques Cousteau</h1>
-              <div class="profile__edit-btn hover-animate"><img src="./images/Edit-Button.svg" alt="Edit button"></div>
+              <button class="profile__edit-btn hover-animate" type="button" aria-label="Edit profile"></button>
             </div>
             <p class="profile__subtitle">Explorer</p>
           </div>
-          <div class="profile__button hover-animate"><img class="profile__add-btn" src="./images/add-button.svg"
-              alt="Add button"></div>
+          <button class="profile__add-button hover-animate" aria-label="Add" type="button"></button>
         </section>
 
 
         <section class="elements">
 
-          <div class="card">
+          <article class="card">
             <img src="./images/kirill-pershin-1088404-unsplash.jpg"
               alt="Pine tree lined river leading to the Yosemite Valley" class="card__image">
             <div class="card__items">
-              <p class="card__title">Yosemite Valley</p>
-              <div class="card__icon"></div>
+              <h2 class="card__title">Yosemite Valley</h2>
+              <button class="card__icon" type="button" aria-label="Like this"></button>
             </div>
-          </div>
+          </article>
 
-          <div class="card">
+          <article class="card">
             <img src="./images/psl.jpg" alt="Pier overlooking the water" class="card__image">
             <div class="card__items">
-              <p class="card__title">Port St Lucie</p>
-              <div class="card__icon"></div>
+              <h2 class="card__title">Port St Lucie</h2>
+              <button class="card__icon" type="button"aria-label="Like this"></button>
             </div>
-          </div>
+          </article>
 
-          <div class="card">
+          <article class="card">
             <img src="./images/staurt.jpg" alt="Orange Sunset on a cool evening in Stuart" class="card__image">
             <div class="card__items">
-              <p class="card__title">Stuart</p>
-              <div class="card__icon"></div>
+              <h2 class="card__title">Stuart</h2>
+              <button class="card__icon" type="button" aria-label="Like this"></button>
             </div>
-          </div>
+          </article>
 
-          <div class="card">
+          <article class="card">
             <img src="./images/ftpierce.jpg" alt="Sunset overlooking the bay" class="card__image">
             <div class="card__items">
-              <p class="card__title">Fort Pierce</p>
-              <div class="card__icon"></div>
+              <h2 class="card__title">Fort Pierce</h2>
+              <button class="card__icon" type="button" aria-label="Like this"></button>
             </div>
-          </div>
+          </article>
 
-          <div class="card">
+          <article class="card">
             <img src="./images/chag.jpg" alt="Sunset in the distance, boats in the harbour" class="card__image">
             <div class="card__items">
-              <p class="card__title">Chaguaramas Bay Marina</p>
-              <div class="card__icon"></div>
+              <h2 class="card__title">Chaguaramas Bay Marina</h2>
+              <button class="card__icon" type="button" aria-label="Like this"></button>
             </div>
-          </div>
+          </article>
 
-          <div class="card">
+          <article class="card">
             <img src="./images/sando.jpg"
               alt="Pink and orange clouds in an evening sunset overlooking King's Wharf, Trinidad" class="card__image">
             <div class="card__items">
-              <p class="card__title">San Fernando</p>
-              <div class="card__icon"></div>
+              <h2 class="card__title">San Fernando</h2>
+              <button class="card__icon" type="button" aria-label="Like this"></button>
             </div>
-          </div>
+          </article>
 
         </section>
 
         <div class="popup">
-          
+
           <div class="popup__overlay">
             <div class="popup__container">
-              <button class="popup__close-btn hover-animate" type="button">
-                <img src="./images/Close-Icon.svg" alt="Close icon">
-              </button>
-              <h3 class="popup__title">Edit profile</h3>
+              <button class="popup__close-btn hover-animate" type="button"></button>
+              <h2 class="popup__title">Edit profile</h2>
               <form class="popup__form" name="Edit">
                 <input type="text" name="name" id="popup_name" placeholder="Name (eg. Jacques Cousteau"
                   class="popup__field">
-                <input type="text" name="title" id="popup_title" placeholder="Title (eg. Explorer)" class="popup__field">
-                <button class="popup__save-btn">Save</button>
+                <input type="text" name="title" id="popup_title" placeholder="Title (eg. Explorer)"
+                  class="popup__field">
+                <button class="popup__save-btn" type="button">Save</button>
               </form>
             </div>
-          </div>
+          
         </div>
       </main>
 
