@@ -91,19 +91,21 @@
         </section>
 
         <div class="popup">
-          <div class="popup__container">
-            <button class="popup__close-btn hover-animate" type="button">
-              <img src="./images/Close-Icon.svg" alt="Close icon">
-            </button>
-            <h3 class="popup__title">Edit profile</h3>
-            <form class="popup__form" name="Edit">
-              <input type="text" name="name" id="popup_name" placeholder="Name (eg. Jacques Cousteau"
-                class="popup__field">
-              <input type="text" name="title" id="popup_title" placeholder="Title (eg. Explorer)" class="popup__field">
-              <button class="popup__save-btn">Save</button>
-            </form>
+          
+          <div class="popup__overlay">
+            <div class="popup__container">
+              <button class="popup__close-btn hover-animate" type="button">
+                <img src="./images/Close-Icon.svg" alt="Close icon">
+              </button>
+              <h3 class="popup__title">Edit profile</h3>
+              <form class="popup__form" name="Edit">
+                <input type="text" name="name" id="popup_name" placeholder="Name (eg. Jacques Cousteau"
+                  class="popup__field">
+                <input type="text" name="title" id="popup_title" placeholder="Title (eg. Explorer)" class="popup__field">
+                <button class="popup__save-btn">Save</button>
+              </form>
+            </div>
           </div>
-          <div class="popup__overlay"></div>
         </div>
       </main>
 

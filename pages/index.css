@@ -40,7 +40,7 @@
 @import url(../blocks/popup/__field/popup__field.css);
 @import url(../blocks/popup/__save-btn/popup__save-btn.css);
 @import url(../blocks/popup/__overlay/popup__overlay.css);
-@import url(../blocks/popup/popup_opened.css);
+@import url(../blocks/popup/_opened/popup_opened.css);
 
 /* Animation */
 @import url(../blocks/hover-animate/hover-animate.css);
