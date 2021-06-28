@@ -1,45 +1,81 @@
-//Button variables
-const popupForm = document.querySelector(".popup");
-const editBtn = document.querySelector(".profile__edit-btn");
-const closeBtn = document.querySelector(".popup__close-btn");
-const saveBtn = document.querySelector(".popup__save-btn");
-const likeBtn = document.querySelector(".card__icon");
-
+//Modals
+const popupEditForm = document.querySelector(".popup_type_edit-profile");
 const popUpNewItem = document.querySelector(".popup_type_new-item");
 
+//Button variables
+
+const editFormSaveButton = popupEditForm.querySelector(".popup__save-btn");
+const newItemSaveButton = popUpNewItem.querySelector(".popup__save-btn");
+const likeBtn = document.querySelector(".card__icon");
+
+////Open Buttons
+
+const editProfileButton = document.querySelector(".profile__edit-btn");
+const addNewPlaceButton = document.querySelector(".profile__add-button");
+
+////Close Buttons
+const closeProfileButton = popupEditForm.querySelector(".popup__close-btn");
+const closeNewPlaceButton = popUpNewItem.querySelector(".popup__close-btn");
 
 //Page Text
 const profileName = document.querySelector(".profile__name");
 const profileTitle = document.querySelector(".profile__subtitle");
 
 //Form Text
-const popupName = document.querySelector("#popup_name");
-const popupTitle = document.querySelector("#popup_title");
+const popupName = popupEditForm.querySelector("#popup_name");
+const popupTitle = popupEditForm.querySelector("#popup_title");
+const newItemName = popUpNewItem.querySelector("#popup_image-title");
+const newItemLink = popUpNewItem.querySelector("#popup_image-link");
 
-//Show and hide popup
-function showPopup() {
-  popupForm.classList.add('popup_opened');
+//Toggle modal Window
+function toggleModalWindow(modal){
+  modal.classList.toggle("popup_opened");
+}
+
+//Edit Profile
+editProfileButton.addEventListener("click", ()=>{
   popupName.value = profileName.textContent;
   popupTitle.value = profileTitle.textContent;
-}
+  toggleModalWindow(popupEditForm);
 
-//Hide popup 
-function hidePopup() {
-  popupForm.classList.remove('popup_opened');
-}
+});
+//Edit Profile
 
-//Save data to HTML, Close popup
-function saveInfo(evt) {
+editFormSaveButton.addEventListener("click", (evt)=> {
+  //Save data to HTML, Close popup
   evt.preventDefault();
   profileName.textContent = popupName.value;
   profileTitle.textContent = popupTitle.value;
-  hidePopup();
-}
+  toggleModalWindow(popupEditForm);
+});
 
+//Close Edit Profile 
+closeProfileButton.addEventListener("click", ()=> {
+  toggleModalWindow(popupEditForm);
+});
 
-editBtn.addEventListener("click", showPopup);
-closeBtn.addEventListener("click", hidePopup);
-saveBtn.addEventListener("click", saveInfo);
+//New Item Modal
+addNewPlaceButton.addEventListener("click", (evt)=>{
+  toggleModalWindow(popUpNewItem);
+});
+
+closeNewPlaceButton.addEventListener("click", (evt)=>{
+  toggleModalWindow(popUpNewItem);
+});
+
+newItemSaveButton.addEventListener("click", (evt)=>{
+  evt.preventDefault();
+  
+  const newCard = {
+    "name": newItemName.value,
+    "link": newItemLink.value
+  }
+  
+  initialCards.push(newCard);
+
+  toggleModalWindow(popUpNewItem);
+});
+
 
 const initialCards = [
   {
