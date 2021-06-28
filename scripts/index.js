@@ -1,17 +1,20 @@
 //Button variables
-let popupForm = document.querySelector(".popup");
-let editBtn = document.querySelector(".profile__edit-btn");
-let closeBtn = document.querySelector(".popup__close-btn");
-let saveBtn = document.querySelector(".popup__save-btn");
-let likeBtn = document.querySelector(".card__icon");
+const popupForm = document.querySelector(".popup");
+const editBtn = document.querySelector(".profile__edit-btn");
+const closeBtn = document.querySelector(".popup__close-btn");
+const saveBtn = document.querySelector(".popup__save-btn");
+const likeBtn = document.querySelector(".card__icon");
+
+const popUpNewItem = document.querySelector(".popup_type_new-item");
+
 
 //Page Text
-let profileName = document.querySelector(".profile__name");
-let profileTitle = document.querySelector(".profile__subtitle");
+const profileName = document.querySelector(".profile__name");
+const profileTitle = document.querySelector(".profile__subtitle");
 
 //Form Text
-let popupName = document.querySelector("#popup_name");
-let popupTitle = document.querySelector("#popup_title");
+const popupName = document.querySelector("#popup_name");
+const popupTitle = document.querySelector("#popup_title");
 
 //Show and hide popup
 function showPopup() {
@@ -38,12 +41,49 @@ editBtn.addEventListener("click", showPopup);
 closeBtn.addEventListener("click", hidePopup);
 saveBtn.addEventListener("click", saveInfo);
 
-// On form opening:
-// Form text fields should have values from HTML input
-// profile__name === popupName 
-// profile__title === popupTitle
+const initialCards = [
+  {
+    name: "Yosemite Valley",
+    link:"./images/kirill-pershin-1088404-unsplash.jpg"
+  },
+  {
+    name: "Port St Lucie",
+    link: "./images/psl.jpg"
+  },
+  {
+    name: "Stuart",
+    link: "./images/staurt.jpg"
+  },
+  {
+    name: "Fort Pierce",
+    link: "./images/ftpierce.jpg"
+  },
+  {
+    name: "Chaguaramas Bay Marina<",
+    link: "./images/chag.jpg"
+  },
+  {
+    name: "San Fernando",
+    link: "./images/sando.jpg"
+  }
+]
 
-//On form saving:
-//    Text from form fields should be added back to HTML
-  // popupName = profile__name
-  // popUptitle = profile__title
+//Templates
+//**access content within template and clone it for each card
+
+
+initialCards.forEach(data =>{
+  //create card
+  const cardTemplate = document.querySelector("#card-template").content; 
+  const cardElement = cardTemplate.querySelector(".card").cloneNode(true);
+  const cardImage = cardElement.querySelector(".card__image");
+  const cardTitle = cardElement.querySelector(".card__title");
+  const likeButton = cardElement.querySelector(".card__like-button");
+  const deleteButton = cardElement.querySelector(".card__delete-button");
+  const cardContainer = document.querySelector(".elements");
+  cardTitle.textContent = data.name;
+  cardImage.src = data.link;
+  
+  cardContainer.prepend(cardElement);
+    
+});

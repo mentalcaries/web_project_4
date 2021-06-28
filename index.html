@@ -38,58 +38,20 @@
         <section class="elements">
 
           <article class="card">
+            
+          </article>
+          <!-- <article class="card">
             <img src="./images/kirill-pershin-1088404-unsplash.jpg"
               alt="Pine tree lined river leading to the Yosemite Valley" class="card__image">
             <div class="card__items">
               <h2 class="card__title">Yosemite Valley</h2>
               <button class="card__icon" type="button" aria-label="Like this"></button>
             </div>
-          </article>
-
-          <article class="card">
-            <img src="./images/psl.jpg" alt="Pier overlooking the water" class="card__image">
-            <div class="card__items">
-              <h2 class="card__title">Port St Lucie</h2>
-              <button class="card__icon" type="button" aria-label="Like this"></button>
-            </div>
-          </article>
-
-          <article class="card">
-            <img src="./images/staurt.jpg" alt="Orange Sunset on a cool evening in Stuart" class="card__image">
-            <div class="card__items">
-              <h2 class="card__title">Stuart</h2>
-              <button class="card__icon" type="button" aria-label="Like this"></button>
-            </div>
-          </article>
-
-          <article class="card">
-            <img src="./images/ftpierce.jpg" alt="Sunset overlooking the bay" class="card__image">
-            <div class="card__items">
-              <h2 class="card__title">Fort Pierce</h2>
-              <button class="card__icon" type="button" aria-label="Like this"></button>
-            </div>
-          </article>
-
-          <article class="card">
-            <img src="./images/chag.jpg" alt="Sunset in the distance, boats in the harbour" class="card__image">
-            <div class="card__items">
-              <h2 class="card__title">Chaguaramas Bay Marina</h2>
-              <button class="card__icon" type="button" aria-label="Like this"></button>
-            </div>
-          </article>
-
-          <article class="card">
-            <img src="./images/sando.jpg"
-              alt="Pink and orange clouds in an evening sunset overlooking King's Wharf, Trinidad" class="card__image">
-            <div class="card__items">
-              <h2 class="card__title">San Fernando</h2>
-              <button class="card__icon" type="button" aria-label="Like this"></button>
-            </div>
-          </article>
+          </article> -->
 
         </section>
 
-        <div class="popup">
+        <div class="popup popup_type_edit-profile">
           <div class="popup__overlay">
             <div class="popup__container">
               <button class="popup__close-btn hover-animate" type="button"></button>
@@ -104,6 +66,24 @@
             </div>
           </div>
         </div>
+
+        <div class="popup popup_type_new-item">
+          <div class="popup__overlay">
+            <div class="popup__container">
+              <button class="popup__close-btn hover-animate" type="button"></button>
+              <h2 class="popup__title">New Place</h2>
+              <form class="popup__form" name="Edit">
+                <input type="text" name="name" id="popup_image-title" placeholder="Title (eg. Penal)"
+                  class="popup__field">
+                <input type="url" name="title" id="popup_image-link" placeholder="Image Link (paste here)"
+                  class="popup__field">
+                <button class="popup__save-btn" type="submit">Create</button>
+              </form>
+            </div>
+          </div>
+        </div>
+
+
       </main>
 
       <footer class="footer">
@@ -112,6 +92,17 @@
       </footer>
     </div>
   </div>
+  <template id="card-template">
+    <article class="card">
+      <button class="card__delete-button" type="button" aria-label="Delete card"></button>
+      <img class="card__image" src="" alt="">
+      <div class="card__items">
+        <h2 class="card__title"></h2>
+        <button class="card__like-button" type="button" aria-label="Like this"></button>
+      </div>
+    </article>
+  </template>
+
   <script src="./scripts/index.js"></script>
 </body>
 
