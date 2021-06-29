@@ -8,6 +8,12 @@ const editFormSaveButton = popupEditForm.querySelector(".popup__save-btn");
 const newItemSaveButton = popUpNewItem.querySelector(".popup__save-btn");
 
 
+const popUpPicture = document.querySelector(".popup_type_picture");
+const popUpPictureImage = popUpPicture.querySelector(".popup__image");
+const popUpPictureCaption = popUpPicture.querySelector(".popup__caption");
+const popUpPictureCloseButton = popUpPicture.querySelector(".popup__close-btn")
+
+
 ////Open Buttons
 
 const editProfileButton = document.querySelector(".profile__edit-btn");
@@ -49,17 +55,19 @@ editFormSaveButton.addEventListener("click", (evt)=> {
   toggleModalWindow(popupEditForm);
 });
 
-//Close Edit Profile 
-closeProfileButton.addEventListener("click", ()=> {
-  toggleModalWindow(popupEditForm);
-});
+// //Close Edit Profile 
+// closeProfileButton.addEventListener("click", ()=> {
+//   toggleModalWindow(popupEditForm);
+// });
 
 //New Item Modal
 ////Click add button
 addNewPlaceButton.addEventListener("click", (evt)=>{
   toggleModalWindow(popUpNewItem);
 });
+
 ////Close Form
+
 closeNewPlaceButton.addEventListener("click", (evt)=>{
   toggleModalWindow(popUpNewItem);
 });
@@ -83,7 +91,7 @@ const initialCards = [
     link: "./images/ftpierce.jpg"
   },
   {
-    name: "Chaguaramas Bay Marina<",
+    name: "Chaguaramas Bay Marina",
     link: "./images/chag.jpg"
   },
   {
@@ -115,9 +123,21 @@ function createCard(data){
 
   //Delete Card
   deleteButton.addEventListener("click", ()=>{
-    cardElement.remove();
-    
+    cardElement.remove();    
   })
+
+  //Maximise Picture
+  cardImage.addEventListener("click", ()=>{
+  popUpPicture.classList.add("popup_opened");
+  popUpPictureImage.src = data.link;
+  popUpPictureCaption.textContent = data.name;
+  })
+
+  //Close Picture
+  popUpPictureCloseButton.addEventListener("click", ()=>{
+  popUpPicture.classList.remove("popup_opened");
+  })
+  return cardElement;
 }
 
 //Create Initial Card Section
@@ -125,6 +145,7 @@ initialCards.forEach(createCard);
 
 
 //New Item Modal - Add New Image Card
+
 newItemSaveButton.addEventListener("click", (evt)=>{
   evt.preventDefault();
   
@@ -140,3 +161,8 @@ newItemSaveButton.addEventListener("click", (evt)=>{
   
 });
 
+
+
+//picture popup
+//image src should = data.link
+//image caption = data.name
