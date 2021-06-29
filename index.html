@@ -65,10 +65,10 @@
               <button class="popup__close-btn hover-animate" type="button"></button>
               <h2 class="popup__title">New Place</h2>
               <form class="popup__form" name="Edit">
-                <input type="text" name="name" id="popup_image-title" placeholder="Title (eg. Penal)"
-                  class="popup__field">
-                <input type="url" name="title" id="popup_image-link" placeholder="Image Link (paste here)"
-                  class="popup__field">
+                <input type="text" name="name" id="popup_image-title" placeholder="Title"
+                  class="popup__field" required>
+                <input type = "url" name="url" id="popup_image-link" placeholder="Image Link"
+                  class="popup__field" required pattern="https://*">
                 <button class="popup__save-btn" type="submit">Create</button>
               </form>
             </div>

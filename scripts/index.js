@@ -6,8 +6,7 @@ const popUpNewItem = document.querySelector(".popup_type_new-item");
 
 const editFormSaveButton = popupEditForm.querySelector(".popup__save-btn");
 const newItemSaveButton = popUpNewItem.querySelector(".popup__save-btn");
-const likeButton = document.querySelector(".card__like-button");
-const deleteButton = document.querySelector(".card__delete-button");
+
 
 ////Open Buttons
 
@@ -97,23 +96,35 @@ const cardContainer = document.querySelector(".elements");
 
 //Templates
 ////Access content within template and clone it for each card
+const cardTemplate = document.querySelector("#card-template").content;
 
 function createCard(data){
-  const cardTemplate = document.querySelector("#card-template").content.querySelector(".card").cloneNode(true);
-  const cardImage = cardTemplate.querySelector(".card__image");
-  const cardTitle = cardTemplate.querySelector(".card__title");
+  const cardElement = cardTemplate.querySelector(".card").cloneNode(true);
+  const cardImage = cardElement.querySelector(".card__image");
+  const cardTitle = cardElement.querySelector(".card__title");
+  const likeButton = cardElement.querySelector(".card__like-button");
+  const deleteButton = cardElement.querySelector(".card__delete-button");
   cardTitle.textContent = data.name;
   cardImage.src = data.link;  
-  cardContainer.prepend(cardTemplate);
+  cardContainer.prepend(cardElement);
+  
+  //Toggle like button
+  likeButton.addEventListener("click", (evt)=>{
+    evt.target.classList.toggle("card__like-button_active");
+  });
+
+  //Delete Card
+  deleteButton.addEventListener("click", ()=>{
+    cardElement.remove();
+    
+  })
 }
 
 //Create Initial Card Section
 initialCards.forEach(createCard);
-  
-    
 
 
-//New Item Modal - Add Card
+//New Item Modal - Add New Image Card
 newItemSaveButton.addEventListener("click", (evt)=>{
   evt.preventDefault();
   
@@ -128,3 +139,4 @@ newItemSaveButton.addEventListener("click", (evt)=>{
   popUpNewItem.querySelector(".popup__form").reset();
   
 });
+
