@@ -6,7 +6,8 @@ const popUpNewItem = document.querySelector(".popup_type_new-item");
 
 const editFormSaveButton = popupEditForm.querySelector(".popup__save-btn");
 const newItemSaveButton = popUpNewItem.querySelector(".popup__save-btn");
-const likeBtn = document.querySelector(".card__icon");
+const likeButton = document.querySelector(".card__like-button");
+const deleteButton = document.querySelector(".card__delete-button");
 
 ////Open Buttons
 
@@ -39,8 +40,8 @@ editProfileButton.addEventListener("click", ()=>{
   toggleModalWindow(popupEditForm);
 
 });
-//Edit Profile
 
+//Edit Profile
 editFormSaveButton.addEventListener("click", (evt)=> {
   //Save data to HTML, Close popup
   evt.preventDefault();
@@ -55,24 +56,12 @@ closeProfileButton.addEventListener("click", ()=> {
 });
 
 //New Item Modal
+////Click add button
 addNewPlaceButton.addEventListener("click", (evt)=>{
   toggleModalWindow(popUpNewItem);
 });
-
+////Close Form
 closeNewPlaceButton.addEventListener("click", (evt)=>{
-  toggleModalWindow(popUpNewItem);
-});
-
-newItemSaveButton.addEventListener("click", (evt)=>{
-  evt.preventDefault();
-  
-  const newCard = {
-    "name": newItemName.value,
-    "link": newItemLink.value
-  }
-  
-  initialCards.push(newCard);
-
   toggleModalWindow(popUpNewItem);
 });
 
@@ -104,22 +93,38 @@ const initialCards = [
   }
 ]
 
+const cardContainer = document.querySelector(".elements");
+
 //Templates
-//**access content within template and clone it for each card
+////Access content within template and clone it for each card
 
-
-initialCards.forEach(data =>{
-  //create card
-  const cardTemplate = document.querySelector("#card-template").content; 
-  const cardElement = cardTemplate.querySelector(".card").cloneNode(true);
-  const cardImage = cardElement.querySelector(".card__image");
-  const cardTitle = cardElement.querySelector(".card__title");
-  const likeButton = cardElement.querySelector(".card__like-button");
-  const deleteButton = cardElement.querySelector(".card__delete-button");
-  const cardContainer = document.querySelector(".elements");
+function createCard(data){
+  const cardTemplate = document.querySelector("#card-template").content.querySelector(".card").cloneNode(true);
+  const cardImage = cardTemplate.querySelector(".card__image");
+  const cardTitle = cardTemplate.querySelector(".card__title");
   cardTitle.textContent = data.name;
-  cardImage.src = data.link;
+  cardImage.src = data.link;  
+  cardContainer.prepend(cardTemplate);
+}
+
+//Create Initial Card Section
+initialCards.forEach(createCard);
   
-  cardContainer.prepend(cardElement);
     
+
+
+//New Item Modal - Add Card
+newItemSaveButton.addEventListener("click", (evt)=>{
+  evt.preventDefault();
+  
+  const newCard = {
+    "name": newItemName.value,
+    "link": newItemLink.value
+  }
+  
+  initialCards.push(newCard);
+  createCard(newCard);
+  toggleModalWindow(popUpNewItem);
+  popUpNewItem.querySelector(".popup__form").reset();
+  
 });
