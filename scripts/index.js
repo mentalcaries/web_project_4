@@ -5,7 +5,7 @@ const popUpNewItem = document.querySelector(".popup_type_new-item");
 //Button variables
 
 const editFormSaveButton = popupEditForm.querySelector(".popup__save-btn");
-const newItemSaveButton = popUpNewItem.querySelector(".popup__save-btn");
+const newItemSaveButton = popUpNewItem.querySelector(".popup__form");
 
 
 const popUpPicture = document.querySelector(".popup_type_picture");
@@ -55,10 +55,10 @@ editFormSaveButton.addEventListener("click", (evt)=> {
   toggleModalWindow(popupEditForm);
 });
 
-// //Close Edit Profile 
-// closeProfileButton.addEventListener("click", ()=> {
-//   toggleModalWindow(popupEditForm);
-// });
+//Close Edit Profile 
+closeProfileButton.addEventListener("click", ()=> {
+  toggleModalWindow(popupEditForm);
+});
 
 //New Item Modal
 ////Click add button
@@ -146,7 +146,7 @@ initialCards.forEach(createCard);
 
 //New Item Modal - Add New Image Card
 
-newItemSaveButton.addEventListener("click", (evt)=>{
+newItemSaveButton.addEventListener("submit", (evt)=>{
   evt.preventDefault();
   
   const newCard = {
