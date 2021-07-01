@@ -33,21 +33,17 @@ const popupTitle = popupEditForm.querySelector("#popup_title");
 const newItemName = popUpNewItem.querySelector("#popup_image-title");
 const newItemLink = popUpNewItem.querySelector("#popup_image-link");
 
-// //Toggle modal Window
-// function toggleModalWindow(modal){
-//   modal.classList.toggle("popup_opened"); 
-// }
 
 //Open Modal 
-function toggleModal(modal){
+function toggleModal(modal) {
   modal.closest(".popup").classList.toggle("popup_opened");
   // modal.closest(".popup").style.animation = "fade-in 250ms forwards";
-  
+
 }
 
 
 //Edit Profile
-  editProfileButton.addEventListener("click", ()=>{
+editProfileButton.addEventListener("click", () => {
   popupName.value = profileName.textContent;
   popupTitle.value = profileTitle.textContent;
   toggleModal(popupEditForm);
@@ -55,7 +51,7 @@ function toggleModal(modal){
 });
 
 //Edit Profile
-editFormSaveButton.addEventListener("click", (evt)=> {
+editFormSaveButton.addEventListener("click", (evt) => {
   //Save data to HTML, Close popup
   evt.preventDefault();
   profileName.textContent = popupName.value;
@@ -64,20 +60,20 @@ editFormSaveButton.addEventListener("click", (evt)=> {
 });
 
 //Close Edit Profile 
-closeProfileButton.addEventListener("click", ()=> {
+closeProfileButton.addEventListener("click", () => {
   toggleModal(popupEditForm);
 });
 
 //New Item Modal
 ////Click add button
-addNewPlaceButton.addEventListener("click", (evt)=>{
+addNewPlaceButton.addEventListener("click", (evt) => {
   toggleModal(popUpNewItem);
 });
 
 ////Close Form
 
-closeNewPlaceButton.addEventListener("click", (evt)=>{
- 
+closeNewPlaceButton.addEventListener("click", (evt) => {
+
   toggleModal(popUpNewItem);
 });
 
@@ -85,7 +81,7 @@ closeNewPlaceButton.addEventListener("click", (evt)=>{
 const initialCards = [
   {
     name: "Yosemite Valley",
-    link:"./images/kirill-pershin-1088404-unsplash.jpg"
+    link: "./images/kirill-pershin-1088404-unsplash.jpg"
   },
   {
     name: "Port St Lucie",
@@ -115,36 +111,36 @@ const cardContainer = document.querySelector(".elements");
 ////Access content within template and clone it for each card
 const cardTemplate = document.querySelector("#card-template").content;
 
-function createCard(data){
+function createCard(data) {
   const cardElement = cardTemplate.querySelector(".card").cloneNode(true);
   const cardImage = cardElement.querySelector(".card__image");
   const cardTitle = cardElement.querySelector(".card__title");
   const likeButton = cardElement.querySelector(".card__like-button");
   const deleteButton = cardElement.querySelector(".card__delete-button");
   cardTitle.textContent = data.name;
-  cardImage.src = data.link;  
+  cardImage.src = data.link;
   cardContainer.prepend(cardElement);
-  
+
   //Toggle like button
-  likeButton.addEventListener("click", (evt)=>{
+  likeButton.addEventListener("click", (evt) => {
     evt.target.classList.toggle("card__like-button_active");
   });
 
   //Delete Card
-  deleteButton.addEventListener("click", ()=>{
-    cardElement.remove();    
+  deleteButton.addEventListener("click", () => {
+    cardElement.remove();
   })
 
   //Maximise Picture
-  cardImage.addEventListener("click", ()=>{
-  toggleModal(popUpPicture);
-  popUpPictureImage.src = data.link;
-  popUpPictureCaption.textContent = data.name;
+  cardImage.addEventListener("click", () => {
+    toggleModal(popUpPicture);
+    popUpPictureImage.src = data.link;
+    popUpPictureCaption.textContent = data.name;
   })
 
   //Close Picture
-  popUpPictureCloseButton.addEventListener("click", ()=>{
-  popUpPicture.classList.remove("popup_opened");
+  popUpPictureCloseButton.addEventListener("click", () => {
+    popUpPicture.classList.remove("popup_opened");
   })
   return cardElement;
 }
@@ -155,19 +151,19 @@ initialCards.forEach(createCard);
 
 //New Item Modal - Add New Image Card
 
-newItemSaveButton.addEventListener("submit", (evt)=>{
+newItemSaveButton.addEventListener("submit", (evt) => {
   evt.preventDefault();
-  
+
   const newCard = {
     "name": newItemName.value,
     "link": newItemLink.value
   }
-  
+
   initialCards.push(newCard);
   createCard(newCard);
   toggleModal(popUpNewItem);
   popUpNewItem.querySelector(".popup__form").reset();
-  
+
 });
 
 
