@@ -11,7 +11,6 @@ const newItemSaveButton = popUpNewItem.querySelector(".popup__form");
 const popUpPicture = document.querySelector(".popup_type_picture");
 const popUpPictureImage = popUpPicture.querySelector(".popup__image");
 const popUpPictureCaption = popUpPicture.querySelector(".popup__caption");
-const popUpPictureCloseButton = popUpPicture.querySelector(".popup__close-btn")
 
 
 ////Open Buttons
@@ -22,6 +21,7 @@ const addNewPlaceButton = document.querySelector(".profile__add-button");
 ////Close Buttons
 const closeProfileButton = popupEditForm.querySelector(".popup__close-btn");
 const closeNewPlaceButton = popUpNewItem.querySelector(".popup__close-btn");
+const popUpPictureCloseButton = popUpPicture.querySelector(".popup__close-btn")
 
 //Page Text
 const profileName = document.querySelector(".profile__name");
@@ -33,16 +33,42 @@ const popupTitle = popupEditForm.querySelector("#popup_title");
 const newItemName = popUpNewItem.querySelector("#popup_image-title");
 const newItemLink = popUpNewItem.querySelector("#popup_image-link");
 
-//Toggle modal Window
-function toggleModalWindow(modal){
-  modal.classList.toggle("popup_opened");
+// //Toggle modal Window
+// function toggleModalWindow(modal){
+//   modal.classList.toggle("popup_opened"); 
+// }
+
+//Open Modal 
+function openModal(modal){
+  modal.closest(".popup").classList.add("popup_opened");
+  modal.closest(".popup").style.animation = "fade-in 250ms forwards";
+  
 }
 
+//Close Modal
+function closeModal(modal){
+  modal.closest(".popup").style.animation = "fade-out 250ms forwards";
+  modal.addEventListener("animationend", ()=>{
+    modal.classList.remove("popup_opened");
+    modal.removeEventListener("animationend",closeModal(modal));
+  })
+}
+
+//Close Modal Window
+// function closeModalWindow(modal){
+//   modal.classList.add("popup_animate")
+//   addEventListener("animationend", ()=>{
+//     modal.classList.remove("popup_animate");
+//     modal.classList.remove("popup_opened");    
+//     modal.removeEventListener("animationend", closeModalWindow(modal));
+//   });
+// }
+
 //Edit Profile
-editProfileButton.addEventListener("click", ()=>{
+  editProfileButton.addEventListener("click", ()=>{
   popupName.value = profileName.textContent;
   popupTitle.value = profileTitle.textContent;
-  toggleModalWindow(popupEditForm);
+  openModal(popupEditForm);
 
 });
 
@@ -57,7 +83,7 @@ editFormSaveButton.addEventListener("click", (evt)=> {
 
 //Close Edit Profile 
 closeProfileButton.addEventListener("click", ()=> {
-  toggleModalWindow(popupEditForm);
+  closeModal(popupEditForm);
 });
 
 //New Item Modal
@@ -69,6 +95,7 @@ addNewPlaceButton.addEventListener("click", (evt)=>{
 ////Close Form
 
 closeNewPlaceButton.addEventListener("click", (evt)=>{
+ 
   toggleModalWindow(popUpNewItem);
 });
 
