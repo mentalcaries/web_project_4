@@ -119,6 +119,7 @@ function createCard(data) {
   const deleteButton = cardElement.querySelector(".card__delete-button");
   cardTitle.textContent = data.name;
   cardImage.src = data.link;
+  cardImage.alt = "Picture of " + data.name;
   cardContainer.prepend(cardElement);
 
   //Toggle like button
@@ -135,6 +136,7 @@ function createCard(data) {
   cardImage.addEventListener("click", () => {
     toggleModal(popUpPicture);
     popUpPictureImage.src = data.link;
+    popUpPictureImage.alt = "Picture of " + data.name;
     popUpPictureCaption.textContent = data.name;
   })
 
