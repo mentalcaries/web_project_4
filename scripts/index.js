@@ -39,36 +39,18 @@ const newItemLink = popUpNewItem.querySelector("#popup_image-link");
 // }
 
 //Open Modal 
-function openModal(modal){
-  modal.closest(".popup").classList.add("popup_opened");
-  modal.closest(".popup").style.animation = "fade-in 250ms forwards";
+function toggleModal(modal){
+  modal.closest(".popup").classList.toggle("popup_opened");
+  // modal.closest(".popup").style.animation = "fade-in 250ms forwards";
   
 }
 
-//Close Modal
-function closeModal(modal){
-  modal.closest(".popup").style.animation = "fade-out 250ms forwards";
-  modal.addEventListener("animationend", ()=>{
-    modal.classList.remove("popup_opened");
-    modal.removeEventListener("animationend",closeModal(modal));
-  })
-}
-
-//Close Modal Window
-// function closeModalWindow(modal){
-//   modal.classList.add("popup_animate")
-//   addEventListener("animationend", ()=>{
-//     modal.classList.remove("popup_animate");
-//     modal.classList.remove("popup_opened");    
-//     modal.removeEventListener("animationend", closeModalWindow(modal));
-//   });
-// }
 
 //Edit Profile
   editProfileButton.addEventListener("click", ()=>{
   popupName.value = profileName.textContent;
   popupTitle.value = profileTitle.textContent;
-  openModal(popupEditForm);
+  toggleModal(popupEditForm);
 
 });
 
@@ -78,25 +60,25 @@ editFormSaveButton.addEventListener("click", (evt)=> {
   evt.preventDefault();
   profileName.textContent = popupName.value;
   profileTitle.textContent = popupTitle.value;
-  toggleModalWindow(popupEditForm);
+  toggleModal(popupEditForm);
 });
 
 //Close Edit Profile 
 closeProfileButton.addEventListener("click", ()=> {
-  closeModal(popupEditForm);
+  toggleModal(popupEditForm);
 });
 
 //New Item Modal
 ////Click add button
 addNewPlaceButton.addEventListener("click", (evt)=>{
-  toggleModalWindow(popUpNewItem);
+  toggleModal(popUpNewItem);
 });
 
 ////Close Form
 
 closeNewPlaceButton.addEventListener("click", (evt)=>{
  
-  toggleModalWindow(popUpNewItem);
+  toggleModal(popUpNewItem);
 });
 
 
@@ -155,7 +137,7 @@ function createCard(data){
 
   //Maximise Picture
   cardImage.addEventListener("click", ()=>{
-  popUpPicture.classList.add("popup_opened");
+  toggleModal(popUpPicture);
   popUpPictureImage.src = data.link;
   popUpPictureCaption.textContent = data.name;
   })
@@ -183,7 +165,7 @@ newItemSaveButton.addEventListener("submit", (evt)=>{
   
   initialCards.push(newCard);
   createCard(newCard);
-  toggleModalWindow(popUpNewItem);
+  toggleModal(popUpNewItem);
   popUpNewItem.querySelector(".popup__form").reset();
   
 });
