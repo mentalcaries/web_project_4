@@ -4,8 +4,8 @@ const popUpNewItem = document.querySelector(".popup_type_new-item");
 
 //Button variables
 
-const editFormSaveButton = popupEditForm.querySelector(".popup__save-btn");
-const newItemSaveButton = popUpNewItem.querySelector(".popup__form");
+const editProfileForm = popupEditForm.querySelector(".popup__form");
+const addCardForm = popUpNewItem.querySelector(".popup__form");
 
 
 const popUpPicture = document.querySelector(".popup_type_picture");
@@ -35,46 +35,49 @@ const newItemLink = popUpNewItem.querySelector("#popup_image-link");
 
 
 //Open Modal 
-function toggleModal(modal) {
-  modal.closest(".popup").classList.toggle("popup_opened");
-  // modal.closest(".popup").style.animation = "fade-in 250ms forwards";
-
+function openPopup(modal) {
+  modal.closest(".popup").classList.add("popup_opened");
 }
+//Close Modal 
+function closePopup(modal) {
+  modal.closest(".popup").classList.remove("popup_opened");
+}
+
 
 
 //Edit Profile
 editProfileButton.addEventListener("click", () => {
   popupName.value = profileName.textContent;
   popupTitle.value = profileTitle.textContent;
-  toggleModal(popupEditForm);
+  openPopup(popupEditForm);
 
 });
 
 //Edit Profile
-editFormSaveButton.addEventListener("click", (evt) => {
+editProfileForm.addEventListener("submit", (evt) => {
   //Save data to HTML, Close popup
   evt.preventDefault();
   profileName.textContent = popupName.value;
   profileTitle.textContent = popupTitle.value;
-  toggleModal(popupEditForm);
+  closePopup(popupEditForm);
 });
 
 //Close Edit Profile 
 closeProfileButton.addEventListener("click", () => {
-  toggleModal(popupEditForm);
+  closePopup(popupEditForm);
 });
 
 //New Item Modal
 ////Click add button
 addNewPlaceButton.addEventListener("click", (evt) => {
-  toggleModal(popUpNewItem);
+  openPopup(popUpNewItem);
 });
 
 ////Close Form
 
 closeNewPlaceButton.addEventListener("click", (evt) => {
 
-  toggleModal(popUpNewItem);
+  closePopup(popUpNewItem);
 });
 
 
@@ -124,6 +127,7 @@ function createCard(data) {
 
   //Toggle like button
   likeButton.addEventListener("click", (evt) => {
+    
     evt.target.classList.toggle("card__like-button_active");
   });
 
@@ -134,18 +138,20 @@ function createCard(data) {
 
   //Maximise Picture
   cardImage.addEventListener("click", () => {
-    toggleModal(popUpPicture);
+    openPopup(popUpPicture);
     popUpPictureImage.src = data.link;
     popUpPictureImage.alt = "Picture of " + data.name;
     popUpPictureCaption.textContent = data.name;
   })
 
-  //Close Picture
-  popUpPictureCloseButton.addEventListener("click", () => {
-    popUpPicture.classList.remove("popup_opened");
-  })
   return cardElement;
 }
+
+//Close Picture
+popUpPictureCloseButton.addEventListener("click", () => {
+  
+  closePopup(popUpPicture);
+})
 
 //Create Initial Card Section
 initialCards.forEach(createCard);
@@ -153,7 +159,7 @@ initialCards.forEach(createCard);
 
 //New Item Modal - Add New Image Card
 
-newItemSaveButton.addEventListener("submit", (evt) => {
+addCardForm.addEventListener("submit", (evt) => {
   evt.preventDefault();
 
   const newCard = {
@@ -163,8 +169,8 @@ newItemSaveButton.addEventListener("submit", (evt) => {
 
   initialCards.push(newCard);
   createCard(newCard);
-  toggleModal(popUpNewItem);
-  popUpNewItem.querySelector(".popup__form").reset();
+  closePopup(popUpNewItem);
+  addCardForm.reset();
 
 });
 

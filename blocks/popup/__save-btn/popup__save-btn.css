@@ -13,6 +13,7 @@
   font-weight: normal;
   font-size: 18px;
   line-height: 22px;
+  transition: opacity 0.25s linear;
 }
 
 .popup__save-btn:hover {
