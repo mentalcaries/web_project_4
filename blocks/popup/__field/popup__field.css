@@ -12,10 +12,6 @@
   /* padding-bottom: 5px; */
 }
 
-.popup__field:last-of-type {
-  margin-bottom: 0px;
-}
-
 @media screen and (max-width: 580px) {
   .popup__field {
     min-height: 26px;

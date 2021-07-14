@@ -18,10 +18,11 @@ function toggleButtonState(inputs, button, {inactiveButtonClass, ...rest}){
   const isValid = inputs.every((input) => input.validity.valid);
   if (isValid){
     button.classList.remove(inactiveButtonClass)
-
+    button.disabled = false;
   }
   else{
     button.classList.add(inactiveButtonClass)
+    button.disabled = true;
   }
 }
 
@@ -64,7 +65,7 @@ enableValidation({
   formSelector: ".popup__form",
   inputSelector: ".popup__field",
   submitButtonSelector: ".popup__save-btn",
-  inactiveButtonClass: "popup__button_disabled",
-  inputErrorClass: "popup__input_type_error",
+  inactiveButtonClass: "popup__save-btn_disabled",
+  inputErrorClass: "popup__field_type_error",
   errorClass: "popup__error_visible"
 });

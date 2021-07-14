@@ -46,6 +46,9 @@
 @import url(../blocks/popup/__image/popup__image.css);
 @import url(../blocks/popup/__figure/popup__figure.css);
 @import url(../blocks/popup/__caption/popup__caption.css);
+@import url(../blocks/popup/__save-btn/_disabled/popup__save-btn_disabled.css);
+@import url(../blocks/popup/__field/_type/popup__field_type_error.css);
+@import url(../blocks/popup/__error/_visible/popup__error_visible.css);
 
 /* Animation */
 @import url(../blocks/hover-animate/hover-animate.css);
