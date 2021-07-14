@@ -48,7 +48,9 @@ function enableValidation({formSelector, inputSelector, submitButtonSelector, ..
     //If input is invalid, display error message and make submit button inactive.
     const inputs = [...form.querySelectorAll(inputSelector)];
     const button = form.querySelector(submitButtonSelector);
+    toggleButtonState(inputs, button, rest);
     
+
     inputs.forEach((input)=>{
       input.addEventListener("input", ()=>{
         //Check input validity

@@ -1,4 +1,5 @@
 //Modals
+const popUp = document.querySelectorAll(".popup");
 const popupEditForm = document.querySelector(".popup_type_edit-profile");
 const popUpNewItem = document.querySelector(".popup_type_new-item");
 
@@ -34,11 +35,11 @@ const newItemName = popUpNewItem.querySelector("#popup_image-title");
 const newItemLink = popUpNewItem.querySelector("#popup_image-link");
 
 
-//Open Modal 
+//General Open Modal 
 function openPopup(modal) {
   modal.closest(".popup").classList.add("popup_opened");
 }
-//Close Modal 
+//General Close Modal 
 function closePopup(modal) {
   modal.closest(".popup").classList.remove("popup_opened");
 }
@@ -53,7 +54,7 @@ editProfileButton.addEventListener("click", () => {
 
 });
 
-//Edit Profile
+//Submit Profile
 editProfileForm.addEventListener("submit", (evt) => {
   //Save data to HTML, Close popup
   evt.preventDefault();
@@ -71,14 +72,31 @@ closeProfileButton.addEventListener("click", () => {
 ////Click add button
 addNewPlaceButton.addEventListener("click", (evt) => {
   openPopup(popUpNewItem);
-});
+  });
 
 ////Close Form
-
 closeNewPlaceButton.addEventListener("click", (evt) => {
-
   closePopup(popUpNewItem);
 });
+
+//Close Popup by clicking overlay
+popUp.forEach(popup=>{
+
+  
+
+  popup.addEventListener("click", (evt)=>{
+    if (evt.target.closest(".popup__container")) return
+    evt.target.closest(".popup").classList.remove("popup_opened");
+   
+  })
+  document.addEventListener("keydown", (evt)=>{
+    if(evt.key === "Escape"){
+    popup.classList.remove("popup_opened");
+    }
+  })
+
+
+})
 
 
 const initialCards = [
