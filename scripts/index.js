@@ -19,11 +19,6 @@ const popUpPictureCaption = popUpPicture.querySelector(".popup__caption");
 const editProfileButton = document.querySelector(".profile__edit-btn");
 const addNewPlaceButton = document.querySelector(".profile__add-button");
 
-////Close Buttons
-const closeProfileButton = popupEditForm.querySelector(".popup__close-btn");
-const closeNewPlaceButton = popUpNewItem.querySelector(".popup__close-btn");
-const popUpPictureCloseButton = popUpPicture.querySelector(".popup__close-btn")
-const closeButton = document.querySelectorAll(".popup__close-btn")
 
 //Page Text
 const profileName = document.querySelector(".profile__name");
@@ -78,11 +73,11 @@ addNewPlaceButton.addEventListener("click", (evt) => {
 popUp.forEach(popup => {
 
   //Close button
-  closeButton.forEach(button => {
-    button.addEventListener("click", (evt) => {
+  const closeButton = popup.querySelector(".popup__close-btn")
+      closeButton.addEventListener("click", (evt) => {
       closePopup(popup);
     })
-  })
+  
 
   //Overlay
   popup.addEventListener("click", (evt) => {
@@ -90,7 +85,7 @@ popUp.forEach(popup => {
     evt.target.closest(".popup").classList.remove("popup_opened");
 
   })
-  //Esc
+  //Esc key
   document.addEventListener("keydown", (evt) => {
     if (evt.key === "Escape") {
       popup.classList.remove("popup_opened");
