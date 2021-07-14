@@ -23,6 +23,7 @@ const addNewPlaceButton = document.querySelector(".profile__add-button");
 const closeProfileButton = popupEditForm.querySelector(".popup__close-btn");
 const closeNewPlaceButton = popUpNewItem.querySelector(".popup__close-btn");
 const popUpPictureCloseButton = popUpPicture.querySelector(".popup__close-btn")
+const closeButton = document.querySelectorAll(".popup__close-btn")
 
 //Page Text
 const profileName = document.querySelector(".profile__name");
@@ -39,11 +40,11 @@ const newItemLink = popUpNewItem.querySelector("#popup_image-link");
 function openPopup(modal) {
   modal.closest(".popup").classList.add("popup_opened");
 }
+
 //General Close Modal 
 function closePopup(modal) {
   modal.closest(".popup").classList.remove("popup_opened");
 }
-
 
 
 //Edit Profile
@@ -54,6 +55,7 @@ editProfileButton.addEventListener("click", () => {
 
 });
 
+
 //Submit Profile
 editProfileForm.addEventListener("submit", (evt) => {
   //Save data to HTML, Close popup
@@ -63,39 +65,37 @@ editProfileForm.addEventListener("submit", (evt) => {
   closePopup(popupEditForm);
 });
 
-//Close Edit Profile 
-closeProfileButton.addEventListener("click", () => {
-  closePopup(popupEditForm);
-});
 
 //New Item Modal
 ////Click add button
 addNewPlaceButton.addEventListener("click", (evt) => {
   openPopup(popUpNewItem);
-  });
-
-////Close Form
-closeNewPlaceButton.addEventListener("click", (evt) => {
-  closePopup(popUpNewItem);
 });
 
-//Close Popup by clicking overlay
-popUp.forEach(popup=>{
 
-  
+//Close Popup by clicking close button, overlay or pressing Esc
 
-  popup.addEventListener("click", (evt)=>{
+popUp.forEach(popup => {
+
+  //Close button
+  closeButton.forEach(button => {
+    button.addEventListener("click", (evt) => {
+      closePopup(popup);
+    })
+  })
+
+  //Overlay
+  popup.addEventListener("click", (evt) => {
     if (evt.target.closest(".popup__container")) return
     evt.target.closest(".popup").classList.remove("popup_opened");
-   
+
   })
-  document.addEventListener("keydown", (evt)=>{
-    if(evt.key === "Escape"){
-    popup.classList.remove("popup_opened");
+  //Esc
+  document.addEventListener("keydown", (evt) => {
+    if (evt.key === "Escape") {
+      popup.classList.remove("popup_opened");
     }
   })
-
-
 })
 
 
@@ -145,7 +145,7 @@ function createCard(data) {
 
   //Toggle like button
   likeButton.addEventListener("click", (evt) => {
-    
+
     evt.target.classList.toggle("card__like-button_active");
   });
 
@@ -164,12 +164,6 @@ function createCard(data) {
 
   return cardElement;
 }
-
-//Close Picture
-popUpPictureCloseButton.addEventListener("click", () => {
-  
-  closePopup(popUpPicture);
-})
 
 //Create Initial Card Section
 initialCards.forEach(createCard);
@@ -191,9 +185,3 @@ addCardForm.addEventListener("submit", (evt) => {
   addCardForm.reset();
 
 });
-
-
-
-//picture popup
-//image src should = data.link
-//image caption = data.name
