@@ -82,13 +82,13 @@ popUp.forEach(popup => {
   //Overlay
   popup.addEventListener("click", (evt) => {
     if (evt.target.closest(".popup__container")) return
-    evt.target.closest(".popup").classList.remove("popup_opened");
+    closePopup(popup);
 
   })
   //Esc key
   document.addEventListener("keydown", (evt) => {
     if (evt.key === "Escape") {
-      popup.classList.remove("popup_opened");
+      closePopup(popup);
     }
   })
 })

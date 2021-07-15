@@ -27,6 +27,7 @@ function toggleButtonState(inputs, button, {inactiveButtonClass, ...rest}){
 }
 
 
+
 function checkInputValidity(input, form, rest){
   if (input.validity.valid){
     hideErrorMessage(input, form, rest);
@@ -48,6 +49,7 @@ function enableValidation({formSelector, inputSelector, submitButtonSelector, ..
     //If input is invalid, display error message and make submit button inactive.
     const inputs = [...form.querySelectorAll(inputSelector)];
     const button = form.querySelector(submitButtonSelector);
+    
     toggleButtonState(inputs, button, rest);
     
 
