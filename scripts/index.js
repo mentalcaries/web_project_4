@@ -31,15 +31,28 @@ const newItemName = popUpNewItem.querySelector("#popup_image-title");
 const newItemLink = popUpNewItem.querySelector("#popup_image-link");
 
 
+
 //General Open Modal 
 function openPopup(modal) {
-  modal.closest(".popup").classList.add("popup_opened");
+  modal.classList.add("popup_opened");
+  document.addEventListener("keydown", escHandler)
+  
 }
 
 //General Close Modal 
 function closePopup(modal) {
-  modal.closest(".popup").classList.remove("popup_opened");
+  modal.classList.remove("popup_opened");
+  document.removeEventListener("keydown", escHandler)
 }
+
+function escHandler(evt){
+  if (evt.key ==="Escape"){
+    const activePopup = document.querySelector(".popup_opened")
+    closePopup(activePopup);
+  }
+}
+
+
 
 
 //Edit Profile
@@ -74,10 +87,10 @@ popUp.forEach(popup => {
 
   //Close button
   const closeButton = popup.querySelector(".popup__close-btn")
-      closeButton.addEventListener("click", (evt) => {
-      closePopup(popup);
-    })
-  
+  closeButton.addEventListener("click", (evt) => {
+    closePopup(popup);
+  })
+
 
   //Overlay
   popup.addEventListener("click", (evt) => {
@@ -85,12 +98,7 @@ popUp.forEach(popup => {
     closePopup(popup);
 
   })
-  //Esc key
-  document.addEventListener("keydown", (evt) => {
-    if (evt.key === "Escape") {
-      closePopup(popup);
-    }
-  })
+
 })
 
 
