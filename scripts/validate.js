@@ -1,10 +1,13 @@
 function showErrorMessage(input, form, {errorClass, inputErrorClass, ...rest}){
-  const error = document.querySelector(`#${input.id}-error`)
+  const formElement = document.querySelector(".popup__form")
+  const error = formElement.querySelector(`#${input.id}-error`)
   error.textContent = input.validationMessage;
   
   error.classList.add(errorClass);
   input.classList.add(inputErrorClass);
 }
+
+
 
 function hideErrorMessage (input, form, {errorClass, inputErrorClass, ...rest}){
   const error = document.querySelector(`#${input.id}-error`)
