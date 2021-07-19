@@ -161,7 +161,7 @@ function createCard(data) {
   cardImage.addEventListener("click", () => {
     openPopup(popUpPicture);
     popUpPictureImage.src = data.link;
-    popUpPictureImage.alt = "Picture of " + data.name;
+    popUpPictureImage.alt = `Picture of ${data.name}`;
     popUpPictureCaption.textContent = data.name;
   })
 
