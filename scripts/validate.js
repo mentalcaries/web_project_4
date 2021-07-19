@@ -1,5 +1,5 @@
 function showErrorMessage(input, form, { errorClass, inputErrorClass, ...rest }) {
-  const formElement = document.querySelector(".popup__form")
+  const formElement = document.querySelector(".popup_opened").querySelector(".popup__form");
   const error = formElement.querySelector(`#${input.id}-error`)
   error.textContent = input.validationMessage;
 
@@ -40,19 +40,18 @@ function checkInputValidity(input, form, rest) {
 }
 
 
-// function setEventListeners(input, form, rest) {
-//   input.addEventListener("input", () => {
-//     // const formElement = document.querySelector(".popup")
-//     // const inputs = formElement.querySelector(".popup__field")
-//     // const button = formElement.querySelector(".popup__save-btn");
-//     //Check input validity
-//     checkInputValidity(inputs, form, rest)
-//     //toggle button state
-//     toggleButtonState(inputs, button, rest);
+function setEventListeners(inputs, form, button, rest) {
+  inputs.forEach((input) => {
+    input.addEventListener("input", () => {
+      //Check input validity
+      checkInputValidity(input, form, rest)
+      //toggle button state
+      toggleButtonState(inputs, button, rest);
 
-//   })
-// }
+    })
+  })
 
+}
 
 function enableValidation({ formSelector, inputSelector, submitButtonSelector, ...rest }) {
   const forms = [...document.querySelectorAll(formSelector)];
@@ -68,22 +67,12 @@ function enableValidation({ formSelector, inputSelector, submitButtonSelector, .
 
     toggleButtonState(inputs, button, rest);
 
+    setEventListeners(inputs, form, button, rest);
 
-    // inputs.forEach((input) => {
-    //   setEventListeners(input)
-    // })
 
-    inputs.forEach((input)=>{
-      input.addEventListener("input", ()=>{
-        //Check input validity
-        checkInputValidity(input, form, rest)
-        //toggle button state
-        toggleButtonState(inputs, button, rest);
-
-      })
-    })
   })
 }
+
 
 enableValidation({
   formSelector: ".popup__form",
