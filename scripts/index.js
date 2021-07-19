@@ -144,7 +144,7 @@ function createCard(data) {
   cardTitle.textContent = data.name;
   cardImage.src = data.link;
   cardImage.alt = "Picture of " + data.name;
-  cardContainer.prepend(cardElement);
+  //cardContainer.prepend(cardElement);
 
   //Toggle like button
   likeButton.addEventListener("click", (evt) => {
@@ -168,8 +168,13 @@ function createCard(data) {
   return cardElement;
 }
 
+
+function renderCard(data){
+  cardContainer.prepend(createCard(data));
+}
+
 //Create Initial Card Section
-initialCards.forEach(createCard);
+initialCards.forEach(renderCard);
 
 
 //New Item Modal - Add New Image Card
@@ -183,7 +188,7 @@ addCardForm.addEventListener("submit", (evt) => {
   }
 
   initialCards.push(newCard);
-  createCard(newCard);
+  renderCard(newCard);
   closePopup(popUpNewItem);
   addCardForm.reset();
 

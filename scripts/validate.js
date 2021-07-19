@@ -1,15 +1,15 @@
-function showErrorMessage(input, form, {errorClass, inputErrorClass, ...rest}){
+function showErrorMessage(input, form, { errorClass, inputErrorClass, ...rest }) {
   const formElement = document.querySelector(".popup__form")
   const error = formElement.querySelector(`#${input.id}-error`)
   error.textContent = input.validationMessage;
-  
+
   error.classList.add(errorClass);
   input.classList.add(inputErrorClass);
 }
 
 
 
-function hideErrorMessage (input, form, {errorClass, inputErrorClass, ...rest}){
+function hideErrorMessage(input, form, { errorClass, inputErrorClass, ...rest }) {
   const error = document.querySelector(`#${input.id}-error`)
   error.textContent = "";
 
@@ -17,13 +17,13 @@ function hideErrorMessage (input, form, {errorClass, inputErrorClass, ...rest}){
   input.classList.remove(inputErrorClass);
 }
 
-function toggleButtonState(inputs, button, {inactiveButtonClass, ...rest}){
+function toggleButtonState(inputs, button, { inactiveButtonClass, ...rest }) {
   const isValid = inputs.every((input) => input.validity.valid);
-  if (isValid){
+  if (isValid) {
     button.classList.remove(inactiveButtonClass)
     button.disabled = false;
   }
-  else{
+  else {
     button.classList.add(inactiveButtonClass)
     button.disabled = true;
   }
@@ -31,8 +31,8 @@ function toggleButtonState(inputs, button, {inactiveButtonClass, ...rest}){
 
 
 
-function checkInputValidity(input, form, rest){
-  if (input.validity.valid){
+function checkInputValidity(input, form, rest) {
+  if (input.validity.valid) {
     hideErrorMessage(input, form, rest);
   }
   else showErrorMessage(input, form, rest);
@@ -40,11 +40,24 @@ function checkInputValidity(input, form, rest){
 }
 
 
+// function setEventListeners(input, form, rest) {
+//   input.addEventListener("input", () => {
+//     // const formElement = document.querySelector(".popup")
+//     // const inputs = formElement.querySelector(".popup__field")
+//     // const button = formElement.querySelector(".popup__save-btn");
+//     //Check input validity
+//     checkInputValidity(inputs, form, rest)
+//     //toggle button state
+//     toggleButtonState(inputs, button, rest);
 
-function enableValidation({formSelector, inputSelector, submitButtonSelector, ...rest}) {
+//   })
+// }
+
+
+function enableValidation({ formSelector, inputSelector, submitButtonSelector, ...rest }) {
   const forms = [...document.querySelectorAll(formSelector)];
 
-  forms.forEach((form)=> {
+  forms.forEach((form) => {
     form.addEventListener("submit", evt => {
       evt.preventDefault();
     });
@@ -52,9 +65,13 @@ function enableValidation({formSelector, inputSelector, submitButtonSelector, ..
     //If input is invalid, display error message and make submit button inactive.
     const inputs = [...form.querySelectorAll(inputSelector)];
     const button = form.querySelector(submitButtonSelector);
-    
+
     toggleButtonState(inputs, button, rest);
-    
+
+
+    // inputs.forEach((input) => {
+    //   setEventListeners(input)
+    // })
 
     inputs.forEach((input)=>{
       input.addEventListener("input", ()=>{
