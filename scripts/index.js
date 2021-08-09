@@ -1,7 +1,12 @@
+import FormValidator from "./FormValidator.js";
+import Card from "./Card.js";
+
 //Modals
 const popUp = document.querySelectorAll(".popup");
 const popupEditForm = document.querySelector(".popup_type_edit-profile");
 const popUpNewItem = document.querySelector(".popup_type_new-item");
+const editFormElement = popupEditForm.querySelector(".popup__form");
+const newItemElement = popUpNewItem.querySelector(".popup__form");
 
 //Button variables
 
@@ -30,6 +35,8 @@ const popupTitle = popupEditForm.querySelector("#popup_title");
 const newItemName = popUpNewItem.querySelector("#popup_image-title");
 const newItemLink = popUpNewItem.querySelector("#popup_image-link");
 
+//Card Template
+const cardTemplate = document.querySelector(".card-template").content;
 
 
 //General Open Modal 
@@ -95,7 +102,7 @@ popUp.forEach(popup => {
   //Overlay
   popup.addEventListener("click", (evt) => {
     if (evt.target.closest(".popup__container")) return
-    closePopup(popup);
+    this._closePopup(popup);
 
   })
 
@@ -133,48 +140,49 @@ const cardContainer = document.querySelector(".elements");
 
 //Templates
 ////Access content within template and clone it for each card
-const cardTemplate = document.querySelector("#card-template").content;
+// const cardTemplate = document.querySelector("#card-template").content;
 
-function createCard(data) {
-  const cardElement = cardTemplate.querySelector(".card").cloneNode(true);
-  const cardImage = cardElement.querySelector(".card__image");
-  const cardTitle = cardElement.querySelector(".card__title");
-  const likeButton = cardElement.querySelector(".card__like-button");
-  const deleteButton = cardElement.querySelector(".card__delete-button");
-  cardTitle.textContent = data.name;
-  cardImage.src = data.link;
-  cardImage.alt = "Picture of " + data.name;
-  //cardContainer.prepend(cardElement);
+// function createCard(data) {
+//   const cardElement = cardTemplate.querySelector(".card").cloneNode(true);
+//   const cardImage = cardElement.querySelector(".card__image");
+//   const cardTitle = cardElement.querySelector(".card__title");
+//   const likeButton = cardElement.querySelector(".card__like-button");
+//   const deleteButton = cardElement.querySelector(".card__delete-button");
+//   cardTitle.textContent = data.name;
+//   cardImage.src = data.link;
+//   cardImage.alt = "Picture of " + data.name;
+  
 
-  //Toggle like button
-  likeButton.addEventListener("click", (evt) => {
+//   //Toggle like button
+//   likeButton.addEventListener("click", (evt) => {
 
-    evt.target.classList.toggle("card__like-button_active");
-  });
+//     evt.target.classList.toggle("card__like-button_active");
+//   });
 
-  //Delete Card
-  deleteButton.addEventListener("click", () => {
-    cardElement.remove();
-  })
+//   //Delete Card
+//   deleteButton.addEventListener("click", () => {
+//     cardElement.remove();
+//   })
 
-  //Maximise Picture
-  cardImage.addEventListener("click", () => {
-    openPopup(popUpPicture);
-    popUpPictureImage.src = data.link;
-    popUpPictureImage.alt = `Picture of ${data.name}`;
-    popUpPictureCaption.textContent = data.name;
-  })
+//   //Maximise Picture
+//   cardImage.addEventListener("click", () => {
+//     openPopup(popUpPicture);
+//     popUpPictureImage.src = data.link;
+//     popUpPictureImage.alt = `Picture of ${data.name}`;
+//     popUpPictureCaption.textContent = data.name;
+//   })
 
-  return cardElement;
-}
+//   return cardElement;
+// }
 
 
-function renderCard(data){
-  cardContainer.prepend(createCard(data));
+function renderCard(data, cardContainer){
+  const card = new Card(data, cardTemplate)
+  cardContainer.prepend(card.createCard());
 }
 
 //Create Initial Card Section
-initialCards.forEach(renderCard);
+initialCards.forEach((data)=>{renderCard(data, cardContainer)});
 
 
 //New Item Modal - Add New Image Card
@@ -188,8 +196,22 @@ addCardForm.addEventListener("submit", (evt) => {
   }
 
   initialCards.push(newCard);
-  renderCard(newCard);
+  renderCard(newCard, cardContainer);
   closePopup(popUpNewItem);
   addCardForm.reset();
 
 });
+
+const defaultFormSettings = {
+  inputSelector: ".popup__field",
+  submitButtonSelector: ".popup__save-btn",
+  inactiveButtonClass: "popup__save-btn_disabled",
+  inputErrorClass: "popup__field_type_error",
+  errorClass: "popup__error_visible"
+}
+
+const editFormValidator = new FormValidator(defaultFormSettings, editFormElement);
+const newItemValidator = new FormValidator(defaultFormSettings, newItemElement);
+
+editFormValidator.enableValidation();
+newItemValidator.enableValidation();
