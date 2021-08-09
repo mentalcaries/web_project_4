@@ -102,7 +102,7 @@ popUp.forEach(popup => {
   //Overlay
   popup.addEventListener("click", (evt) => {
     if (evt.target.closest(".popup__container")) return
-    this._closePopup(popup);
+    closePopup(popup);
 
   })
 
