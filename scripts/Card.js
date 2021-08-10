@@ -18,8 +18,8 @@ const closePopup = (modal)=> {
 
 
 const escHandler = (evt) => {
-  const activePopup = document.querySelector(".popup_opened");
   if (evt.key === "Escape") {
+    const activePopup = document.querySelector(".popup_opened");
     closePopup(activePopup);
   }
  }

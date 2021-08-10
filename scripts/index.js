@@ -2,7 +2,7 @@ import FormValidator from "./FormValidator.js";
 import Card from "./Card.js";
 
 //Modals
-const popUp = document.querySelectorAll(".popup");
+const popups = document.querySelectorAll(".popup");
 const popupEditForm = document.querySelector(".popup_type_edit-profile");
 const popUpNewItem = document.querySelector(".popup_type_new-item");
 const editFormElement = popupEditForm.querySelector(".popup__form");
@@ -64,7 +64,7 @@ editProfileButton.addEventListener("click", () => {
   popupName.value = profileName.textContent;
   popupTitle.value = profileTitle.textContent;
   openPopup(popupEditForm);
-  enableEditProfileButton();
+  
 });
 
 
@@ -88,7 +88,7 @@ addNewPlaceButton.addEventListener("click", (evt) => {
 
 //Close Popup by clicking close button, overlay or pressing Esc
 
-popUp.forEach(popup => {
+popups.forEach(popup => {
 
   //Close button
   const closeButton = popup.querySelector(".popup__close-btn")
@@ -144,15 +144,15 @@ function renderCard(data, cardContainer){
 //Create Initial Card Section
 initialCards.forEach((data)=>{renderCard(data, cardContainer)});
 
-function disableNewCardButton(){
-  newItemSubmitButton.classList.add("popup__save-btn_disabled")
-  newItemSubmitButton.disabled = true;
-}
+// function disableNewCardButton(){
+//   newItemSubmitButton.classList.add("popup__save-btn_disabled")
+//   newItemSubmitButton.disabled = true;
+// }
 
-function enableEditProfileButton(){
-  editProfileSubmitButton.classList.remove("popup__save-btn_disabled")
-  editProfileSubmitButton.disabled = false;
-}
+// function enableEditProfileButton(){
+//   editProfileSubmitButton.classList.remove("popup__save-btn_disabled")
+//   editProfileSubmitButton.disabled = false;
+// }
 
 //New Item Modal - Add New Image Card
 
@@ -164,10 +164,9 @@ addCardForm.addEventListener("submit", (evt) => {
     "link": newItemLink.value
   }
 
-  initialCards.push(newCard);
+ 
   renderCard(newCard, cardContainer);
   closePopup(popUpNewItem);
-  disableNewCardButton();
   addCardForm.reset();
 
 });
