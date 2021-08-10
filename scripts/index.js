@@ -6,14 +6,13 @@ const popUp = document.querySelectorAll(".popup");
 const popupEditForm = document.querySelector(".popup_type_edit-profile");
 const popUpNewItem = document.querySelector(".popup_type_new-item");
 const editFormElement = popupEditForm.querySelector(".popup__form");
-const newItemElement = popUpNewItem.querySelector(".popup__form");
 
 //Button variables
 
-const editProfileForm = popupEditForm.querySelector(".popup__form");
 const addCardForm = popUpNewItem.querySelector(".popup__form");
 
-
+const newItemSubmitButton = addCardForm.querySelector(".popup__save-btn");
+const editProfileSubmitButton = editFormElement.querySelector(".popup__save-btn")
 const popUpPicture = document.querySelector(".popup_type_picture");
 const popUpPictureImage = popUpPicture.querySelector(".popup__image");
 const popUpPictureCaption = popUpPicture.querySelector(".popup__caption");
@@ -60,24 +59,23 @@ function escHandler(evt){
 }
 
 
-
-
 //Edit Profile
 editProfileButton.addEventListener("click", () => {
   popupName.value = profileName.textContent;
   popupTitle.value = profileTitle.textContent;
   openPopup(popupEditForm);
-
+  enableEditProfileButton();
 });
 
 
 //Submit Profile
-editProfileForm.addEventListener("submit", (evt) => {
+editFormElement.addEventListener("submit", (evt) => {
   //Save data to HTML, Close popup
   evt.preventDefault();
   profileName.textContent = popupName.value;
   profileTitle.textContent = popupTitle.value;
   closePopup(popupEditForm);
+  
 });
 
 
@@ -103,9 +101,7 @@ popUp.forEach(popup => {
   popup.addEventListener("click", (evt) => {
     if (evt.target.closest(".popup__container")) return
     closePopup(popup);
-
   })
-
 })
 
 
@@ -184,6 +180,15 @@ function renderCard(data, cardContainer){
 //Create Initial Card Section
 initialCards.forEach((data)=>{renderCard(data, cardContainer)});
 
+function disableNewCardButton(){
+  newItemSubmitButton.classList.add("popup__save-btn_disabled")
+  newItemSubmitButton.disabled = true;
+}
+
+function enableEditProfileButton(){
+  editProfileSubmitButton.classList.remove("popup__save-btn_disabled")
+  editProfileSubmitButton.disabled = false;
+}
 
 //New Item Modal - Add New Image Card
 
@@ -198,6 +203,7 @@ addCardForm.addEventListener("submit", (evt) => {
   initialCards.push(newCard);
   renderCard(newCard, cardContainer);
   closePopup(popUpNewItem);
+  disableNewCardButton();
   addCardForm.reset();
 
 });
@@ -211,7 +217,7 @@ const defaultFormSettings = {
 }
 
 const editFormValidator = new FormValidator(defaultFormSettings, editFormElement);
-const newItemValidator = new FormValidator(defaultFormSettings, newItemElement);
+const newItemValidator = new FormValidator(defaultFormSettings, addCardForm);
 
 editFormValidator.enableValidation();
 newItemValidator.enableValidation();
