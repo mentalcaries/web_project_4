@@ -14,7 +14,7 @@ class FormValidator {
   _toggleButtonState(button) {
     const inputsArr = Array.from(this._form.querySelectorAll(this._inputSelector));
     const isValid = inputsArr.every((input) => input.validity.valid);
-    // const saveButton = document.querySelector(this._submitButtonSelector);
+    
 
     if (isValid) {
       button.classList.remove(this._inactiveButtonClass)

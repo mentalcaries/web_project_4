@@ -134,42 +134,6 @@ const initialCards = [
 
 const cardContainer = document.querySelector(".elements");
 
-//Templates
-////Access content within template and clone it for each card
-// const cardTemplate = document.querySelector("#card-template").content;
-
-// function createCard(data) {
-//   const cardElement = cardTemplate.querySelector(".card").cloneNode(true);
-//   const cardImage = cardElement.querySelector(".card__image");
-//   const cardTitle = cardElement.querySelector(".card__title");
-//   const likeButton = cardElement.querySelector(".card__like-button");
-//   const deleteButton = cardElement.querySelector(".card__delete-button");
-//   cardTitle.textContent = data.name;
-//   cardImage.src = data.link;
-//   cardImage.alt = "Picture of " + data.name;
-  
-
-//   //Toggle like button
-//   likeButton.addEventListener("click", (evt) => {
-
-//     evt.target.classList.toggle("card__like-button_active");
-//   });
-
-//   //Delete Card
-//   deleteButton.addEventListener("click", () => {
-//     cardElement.remove();
-//   })
-
-//   //Maximise Picture
-//   cardImage.addEventListener("click", () => {
-//     openPopup(popUpPicture);
-//     popUpPictureImage.src = data.link;
-//     popUpPictureImage.alt = `Picture of ${data.name}`;
-//     popUpPictureCaption.textContent = data.name;
-//   })
-
-//   return cardElement;
-// }
 
 
 function renderCard(data, cardContainer){
