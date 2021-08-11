@@ -2,11 +2,9 @@ const popUpPicture = document.querySelector(".popup_type_picture");
 const popUpPictureImage = popUpPicture.querySelector(".popup__image");
 const popUpPictureCaption = popUpPicture.querySelector(".popup__caption");
 const cardImage = document.querySelector(".card__image");
-const activePopup = document.querySelector(".popup_opened");
 
 const openPopup = (modal)=> {
   modal.classList.add("popup_opened");
-
   document.addEventListener("keydown", escHandler)
 
 }

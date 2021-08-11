@@ -6,10 +6,10 @@ const popups = document.querySelectorAll(".popup");
 const popupEditForm = document.querySelector(".popup_type_edit-profile");
 const popUpNewItem = document.querySelector(".popup_type_new-item");
 const editFormElement = popupEditForm.querySelector(".popup__form");
+const addCardForm = popUpNewItem.querySelector(".popup__form");
 
 //Button variables
 
-const addCardForm = popUpNewItem.querySelector(".popup__form");
 
 const newItemSubmitButton = addCardForm.querySelector(".popup__save-btn");
 const editProfileSubmitButton = editFormElement.querySelector(".popup__save-btn")
@@ -135,24 +135,19 @@ const initialCards = [
 const cardContainer = document.querySelector(".elements");
 
 
+function generateCard (data, cardTemplate){
+  const card = new Card(data, cardTemplate);
+  return card.createCard();
+}
+
 
 function renderCard(data, cardContainer){
-  const card = new Card(data, cardTemplate)
-  cardContainer.prepend(card.createCard());
+  cardContainer.prepend(generateCard(data, cardTemplate));
 }
 
 //Create Initial Card Section
 initialCards.forEach((data)=>{renderCard(data, cardContainer)});
 
-// function disableNewCardButton(){
-//   newItemSubmitButton.classList.add("popup__save-btn_disabled")
-//   newItemSubmitButton.disabled = true;
-// }
-
-// function enableEditProfileButton(){
-//   editProfileSubmitButton.classList.remove("popup__save-btn_disabled")
-//   editProfileSubmitButton.disabled = false;
-// }
 
 //New Item Modal - Add New Image Card
 

@@ -5,16 +5,16 @@ class FormValidator {
     this._inactiveButtonClass = settings.inactiveButtonClass;
     this._inputErrorClass = settings.inputErrorClass;
     this._errorClass = settings.errorClass;
-
     this._form = formElement;
+    this._inputList = Array.from(this._form.querySelectorAll(this._inputSelector));
+    this._button = this._form.querySelector(this._submitButtonSelector);
   }
 
 
 
   _toggleButtonState(button) {
-    const inputsArr = Array.from(this._form.querySelectorAll(this._inputSelector));
-    const isValid = inputsArr.every((input) => input.validity.valid);
-    
+     const isValid = this._inputList.every((input) => input.validity.valid);
+
 
     if (isValid) {
       button.classList.remove(this._inactiveButtonClass)
@@ -24,6 +24,14 @@ class FormValidator {
       button.classList.add(this._inactiveButtonClass)
       button.disabled = true;
     }
+  }
+
+  _resetValidation(button) {
+
+    this._toggleButtonState(button);
+    this._inputList.forEach((input) => {
+      this._hideErrorMessage(input);
+    })
   }
 
   _showErrorMessage(input) {
@@ -45,22 +53,18 @@ class FormValidator {
   }
 
   _checkInputValidity(input) {
-    const inputField = this._form.querySelector(this._inputSelector);
-    if (inputField.validity.valid) {
+    if (input.validity.valid) {
       this._hideErrorMessage(input);
     }
     else this._showErrorMessage(input);
   }
 
   _setEventListeners() {
-    const inputs = Array.from(this._form.querySelectorAll(this._inputSelector));
-    const button = this._form.querySelector(this._submitButtonSelector);
 
-
-    inputs.forEach((input) => {
+    this._inputList.forEach((input) => {
       input.addEventListener("input", () => {
         this._checkInputValidity(input);
-        this._toggleButtonState(button);
+        this._toggleButtonState(this._button);
 
       })
     })
@@ -69,14 +73,14 @@ class FormValidator {
 
 
   enableValidation() {
-    const button = this._form.querySelector(this._submitButtonSelector);
+
     this._form.addEventListener("submit", evt => {
       evt.preventDefault();
-
+      this._resetValidation(this._button);
     });
 
     this._setEventListeners();
-    this._toggleButtonState(button);
+    this._toggleButtonState(this._button);
 
   }
 }
