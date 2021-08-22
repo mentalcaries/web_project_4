@@ -1,7 +1,7 @@
 const popUpPicture = document.querySelector(".popup_type_picture");
 const popUpPictureImage = popUpPicture.querySelector(".popup__image");
 const popUpPictureCaption = popUpPicture.querySelector(".popup__caption");
-const cardImage = document.querySelector(".card__image");
+
 
 const openPopup = (modal)=> {
   modal.classList.add("popup_opened");
@@ -24,11 +24,11 @@ const escHandler = (evt) => {
 
 
 class Card {
-  constructor(data, cardTemplate) {
+  constructor(data, cardTemplate, {handleCardClick}) {
     this._text = data.name;
     this._link = data.link;
-
     this._cardTemplate = cardTemplate;
+    this._handleCardClick = handleCardClick;
   }
 
   _getTemplate() {
@@ -50,17 +50,6 @@ class Card {
     deleteButton.addEventListener("click", () => {
       this._card.remove();
     })
-
-    //Maximise Picture
-    this._cardImage.addEventListener("click", () => {
-
-
-      openPopup(popUpPicture);
-      popUpPictureImage.src = this._link;
-      popUpPictureImage.alt = `Picture of ${this._text}`;
-      popUpPictureCaption.textContent = this._text;
-    })
-
   }
 
   createCard() {
@@ -68,16 +57,25 @@ class Card {
     this._card = this._getTemplate();
     this._cardImage = this._card.querySelector(".card__image");
     this._setEventListeners();
-
     const cardTitle = this._card.querySelector(".card__title");
     cardTitle.textContent = this._text;
     this._cardImage.src = this._link;
     this._cardImage.alt = "Picture of " + this._text;
-
+    this._cardImage.addEventListener("click", this._handleCardClick)
     return this._card;
   }
 
-
-}
+ }
 
 export default Card;
+
+
+    // //Maximise Picture
+    // this._cardImage.addEventListener("click", () => {
+
+
+    //   openPopup(popUpPicture);
+    //   popUpPictureImage.src = this._link;
+    //   popUpPictureImage.alt = `Picture of ${this._text}`;
+    //   popUpPictureCaption.textContent = this._text;
+    // })

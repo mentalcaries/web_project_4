@@ -1,0 +1,20 @@
+{
+  "name": "web_project_4",
+  "version": "1.0.0",
+  "description": "Around the US",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mentalcaries/web_project_4.git"
+  },
+  "author": "Devin Jaggernauth",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mentalcaries/web_project_4/issues"
+  },
+  "homepage": "https://github.com/mentalcaries/web_project_4#readme",
+  "dependencies": {}
+}
