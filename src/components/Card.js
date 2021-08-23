@@ -27,7 +27,7 @@ class Card {
     })
   }
 
-  createCard() {
+  getCard() {
 
     this._card = this._getTemplate();
     this._cardImage = this._card.querySelector(".card__image");
@@ -37,6 +37,8 @@ class Card {
     this._cardImage.src = this._link;
     this._cardImage.alt = "Picture of " + this._text;
     this._cardImage.addEventListener("click", this._handleCardClick)
+
+
     return this._card;
   }
 }

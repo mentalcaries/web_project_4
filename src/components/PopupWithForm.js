@@ -21,15 +21,15 @@ class PopupWithForm extends Popup {
     this._popupForm.addEventListener("submit", (evt) => {
       evt.preventDefault();
       this._submitFormHandler(this._getInputValues());
-      this.close(evt.target);
+      this.close();
 
     });
     super.setEventListeners();
   }
 
   close() {
-    super.close();
     this._popupForm.reset();
+    super.close();
     //modify to reset the form once popup is closed
   }
 

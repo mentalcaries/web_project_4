@@ -1,3 +1,5 @@
+import {editProfileButton, CloseButton} from "../utils/constants.js"
+
 class FormValidator {
   constructor(settings, formElement) {
     this._inputSelector = settings.inputSelector;
@@ -8,6 +10,7 @@ class FormValidator {
     this._form = formElement;
     this._inputList = Array.from(this._form.querySelectorAll(this._inputSelector));
     this._button = this._form.querySelector(this._submitButtonSelector);
+    
   }
 
 
@@ -78,10 +81,9 @@ class FormValidator {
       evt.preventDefault();
       this._resetValidation(this._button);
     });
-
+ 
     this._setEventListeners();
     this._toggleButtonState(this._button);
-
   }
 }
 
