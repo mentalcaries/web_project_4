@@ -1,30 +1,5 @@
-const popUpPicture = document.querySelector(".popup_type_picture");
-const popUpPictureImage = popUpPicture.querySelector(".popup__image");
-const popUpPictureCaption = popUpPicture.querySelector(".popup__caption");
-
-
-const openPopup = (modal)=> {
-  modal.classList.add("popup_opened");
-  document.addEventListener("keydown", escHandler)
-
-}
-
-const closePopup = (modal)=> {
-  modal.classList.remove("popup_opened");
-  document.removeEventListener("keydown", escHandler)
-}
-
-
-const escHandler = (evt) => {
-  if (evt.key === "Escape") {
-    const activePopup = document.querySelector(".popup_opened");
-    closePopup(activePopup);
-  }
- }
-
-
 class Card {
-  constructor(data, cardTemplate, {handleCardClick}) {
+  constructor(data, cardTemplate, { handleCardClick }) {
     this._text = data.name;
     this._link = data.link;
     this._cardTemplate = cardTemplate;
@@ -64,18 +39,6 @@ class Card {
     this._cardImage.addEventListener("click", this._handleCardClick)
     return this._card;
   }
-
- }
+}
 
 export default Card;
-
-
-    // //Maximise Picture
-    // this._cardImage.addEventListener("click", () => {
-
-
-    //   openPopup(popUpPicture);
-    //   popUpPictureImage.src = this._link;
-    //   popUpPictureImage.alt = `Picture of ${this._text}`;
-    //   popUpPictureCaption.textContent = this._text;
-    // })

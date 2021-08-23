@@ -1,4 +1,3 @@
-import Card from "./Card.js";
 
 class Popup {
   constructor(popupSelector) {

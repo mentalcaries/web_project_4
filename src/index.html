@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Practicum Project 4: Javascript Begins!">
   <meta name="author" content="Devin Jaggernauth, Web Dev Student">
-  <link rel="stylesheet" href="./pages/index.css">
+  <!-- <link rel="stylesheet" href="./pages/index.css"> -->
   <title>Around the U.S</title>
   <link rel="apple-touch-icon" sizes="180x180" href="./images/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
@@ -18,12 +18,12 @@
   <div class="root">
     <div class="page-content">
       <header class="header">
-        <img src="./images/header-logo.svg" alt="Around the US text" class="header__logo">
+        <img src= "<%=require('./images/header-logo.svg')%>" alt="Around the US text" class="header__logo">
       </header>
 
       <main class="content">
         <section class="profile">
-          <img src="./images/Avatar.jpg" alt="User profile pic" class="profile__image">
+          <img src="<%=require('./images/Avatar.jpg')%>" alt="User profile pic" class="profile__image">
           <div class="profile__info">
             <div class="profile__title">
               <h1 class="profile__name">Jacques Cousteau</h1>
@@ -116,8 +116,7 @@
     </article>
   </template>
 
-  <script type="module" src="./scripts/index.js"></script>
-  <!-- <script src="./scripts/validate.js"></script> -->
+
 </body>
 
 </html>
