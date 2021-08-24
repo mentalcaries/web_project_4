@@ -5,7 +5,7 @@ import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import UserInfo from "../components/UserInfo.js";
 import FormValidator from "../components/FormValidator.js";
-import { initialCards, defaultFormSettings, editFormElement, addCardForm, editProfileButton, addNewPlaceButton, profileName, profileTitle, popupName, popupTitle, template, cardImage, cardTitle } from "../utils/constants.js";
+import { initialCards, defaultFormSettings, editFormElement, addCardForm, editProfileButton, addNewPlaceButton, profileName, profileTitle, popupName, popupTitle, template, } from "../utils/constants.js";
 
 
 //Elements Section
@@ -18,7 +18,8 @@ elements.renderItems();
 function createCard(item, template) {
   return new Card(item, template, {
     handleCardClick: () => {
-      imagePopup.open({ link: cardImage.src, name: cardTitle.textContent });
+
+      imagePopup.open({ link: item.link, name: item.name });
     }
   })}
   

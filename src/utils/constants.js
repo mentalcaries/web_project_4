@@ -70,5 +70,3 @@ export const popupTitle = popupEditForm.querySelector("#popup_title");
 
 //Card Template
 export const template = document.querySelector(".card-template").content;
-export const cardImage = document.querySelector(".card__image");
-export const cardTitle = document.querySelector(".card__title");

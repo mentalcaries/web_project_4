@@ -1,5 +1,3 @@
-import {editProfileButton, CloseButton} from "../utils/constants.js"
-
 class FormValidator {
   constructor(settings, formElement) {
     this._inputSelector = settings.inputSelector;
