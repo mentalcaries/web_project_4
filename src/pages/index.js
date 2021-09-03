@@ -1,18 +1,38 @@
 import "../pages/index.css";
 import Section from "../components/Section.js";
+import Api from "../components/Api.js";
 import Card from "../components/Card.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import UserInfo from "../components/UserInfo.js";
 import FormValidator from "../components/FormValidator.js";
-import { initialCards, defaultFormSettings, editFormElement, addCardForm, editProfileButton, addNewPlaceButton, profileName, profileTitle, popupName, popupTitle, template, } from "../utils/constants.js";
+import { defaultFormSettings, editFormElement, addCardForm, editProfileButton, addNewPlaceButton, profileName, profileTitle, popupName, popupTitle, template, } from "../utils/constants.js";
+
+
+//API
+
+const api = new Api({
+  baseUrl: "https://around.nomoreparties.co/v1/group-10",
+  headers: {
+    authorization: "8e942d63-a4ca-4642-8de3-5514e3f09ba0",
+    "Content-Type": "application/json"
+  }
+});
+
+api.getProfileInfo();
 
 
 //Elements Section
 
 const elements = new Section({
-  items: initialCards, renderer: generateCard}, ".elements")
-elements.renderItems();
+  renderer: generateCard
+}, ".elements")
+
+api.getInitialCards().then((cards) => {
+  elements.renderItems(cards);
+})
+
+// elements.renderItems();
 
 
 function createCard(item, template) {
@@ -21,12 +41,13 @@ function createCard(item, template) {
 
       imagePopup.open({ link: item.link, name: item.name });
     }
-  })}
-  
-  function generateCard(item) {
-    const card = createCard(item, template);
-    return elements.addItem(card.getCard())
-  }
+  })
+}
+
+function generateCard(item) {
+  const card = createCard(item, template);
+  return elements.addItem(card.getCard())
+}
 
 
 //Add New Card
@@ -42,9 +63,12 @@ renderedCard.setEventListeners();
 //Edit Profile
 const userInfo = new UserInfo({ nameSelector: profileName, titleSelector: profileTitle })
 
+
 const userProfile = new PopupWithForm({
   submitFormHandler: (item) => {
-    userInfo.setUserInfo({ nameSelector: item.name, titleSelector: item.title });
+    api.setProfileInfo(item)
+      .then(userInfo.setUserInfo({ nameSelector: item.name, titleSelector: item.title }));
+
   }
 }, ".popup_type_edit-profile")
 
@@ -52,6 +76,7 @@ userProfile.setEventListeners();
 
 editProfileButton.addEventListener("click", (evt) => {
   const profileText = userInfo.getUserInfo();
+
   popupName.value = profileText.name;
   popupTitle.value = profileText.title;
   userProfile.open();
