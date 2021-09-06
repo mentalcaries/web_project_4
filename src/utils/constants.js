@@ -50,8 +50,10 @@ export const defaultFormSettings = {
 //Modals
 export const popupEditForm = document.querySelector(".popup_type_edit-profile");
 export const popUpNewItem = document.querySelector(".popup_type_new-item");
+export const popupConfirmDelete = document.querySelector(".popup_type_confirm-delete");
 export const editFormElement = popupEditForm.querySelector(".popup__form");
 export const addCardForm = popUpNewItem.querySelector(".popup__form");
+
 
 //Button variables
 

@@ -6,7 +6,7 @@ import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import UserInfo from "../components/UserInfo.js";
 import FormValidator from "../components/FormValidator.js";
-import { defaultFormSettings, editFormElement, addCardForm, editProfileButton, addNewPlaceButton, profileName, profileTitle, popupName, popupTitle, template, } from "../utils/constants.js";
+import { defaultFormSettings, editFormElement, addCardForm, editProfileButton, addNewPlaceButton, profileName, profileTitle, popupName, popupTitle, template } from "../utils/constants.js";
 
 
 //API
@@ -19,50 +19,20 @@ const api = new Api({
   }
 });
 
-api.getProfileInfo();
-
-
-//Elements Section
-
-const elements = new Section({
-  renderer: generateCard
-}, ".elements")
-
-api.getInitialCards().then((cards) => {
-  elements.renderItems(cards);
-})
-
-// elements.renderItems();
-
-
-function createCard(item, template) {
-  return new Card(item, template, {
-    handleCardClick: () => {
-
-      imagePopup.open({ link: item.link, name: item.name });
-    }
-  })
-}
-
-function generateCard(item) {
-  const card = createCard(item, template);
-  return elements.addItem(card.getCard())
-}
-
-
-//Add New Card
-const renderedCard = new PopupWithForm({
-  submitFormHandler: (item) => {
-    generateCard(item);
-  }
-}, ".popup_type_new-item")
-renderedCard.setEventListeners();
-
-
-
-//Edit Profile
+//Get User Info
 const userInfo = new UserInfo({ nameSelector: profileName, titleSelector: profileTitle })
 
+api.getProfileInfo()
+  .then((userData) => {
+    userInfo.setUserInfo({ name: userData.name, title: userData.about, id: userData._id, avatar: userData.avatar})
+    const currentUser = userInfo.getUserInfo();
+    
+  })
+  
+  const currentUser = userInfo.getUserInfo();
+    
+
+//Edit Profile
 
 const userProfile = new PopupWithForm({
   submitFormHandler: (item) => {
@@ -75,13 +45,57 @@ const userProfile = new PopupWithForm({
 userProfile.setEventListeners();
 
 editProfileButton.addEventListener("click", (evt) => {
-  const profileText = userInfo.getUserInfo();
-
-  popupName.value = profileText.name;
-  popupTitle.value = profileText.title;
+  const currentUser = userInfo.getUserInfo();
+  popupName.value = currentUser.name;
+  popupTitle.value = currentUser.title;
   userProfile.open();
 
 });
+
+
+//Elements Section
+
+const elements = new Section({
+  renderer: generateCard
+}, ".elements")
+
+
+//Initial cards on page load
+
+api.getInitialCards().then((cards) => {
+  elements.renderItems(cards.reverse());
+})
+
+//Create card and add to DOM
+
+function createCard(item, template) {
+  const currentUser = userInfo.getUserInfo();
+   return new Card(item, {currentUserId: currentUser.id}, template, {
+    handleCardClick: () => {
+      imagePopup.open({ link: item.link, name: item.name });
+      }
+  })
+}
+
+function generateCard(item) {
+  const card = createCard(item, template);
+  return elements.addItem(card.getCard())
+}
+
+
+//Add New Card
+const renderedCard = new PopupWithForm({
+  submitFormHandler: (item) => {
+    api.addNewCard(item)
+      .then((item) => generateCard(item));
+
+  }
+}, ".popup_type_new-item")
+renderedCard.setEventListeners();
+
+
+
+
 
 
 

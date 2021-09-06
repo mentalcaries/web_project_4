@@ -1,19 +1,26 @@
 class UserInfo {
-  constructor({ nameSelector, titleSelector }) {
+  constructor({ nameSelector, titleSelector, id, avatar }) {
     this._nameSelector = nameSelector;
     this._titleSelector = titleSelector;
+    this._id = id;
+    this._avatar = avatar;
+    
   }
 
   getUserInfo() {
     return {
       name: this._nameSelector.textContent,
-      title: this._titleSelector.textContent
+      title: this._titleSelector.textContent,
+      id: this._id,
+      avatar: this._avatar
     };
   }
 
-  setUserInfo({nameSelector, titleSelector}) {
-    this._nameSelector.textContent = nameSelector;
-    this._titleSelector.textContent = titleSelector;
+  setUserInfo({name, title, id, avatar}) {
+    this._nameSelector.textContent = name;
+    this._titleSelector.textContent = title;
+    this._id = id
+    this._avatar = avatar
   };
 }
 

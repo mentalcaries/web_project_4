@@ -1,4 +1,4 @@
-import { profileName, profileTitle, } from "../utils/constants.js"
+import { profileName, profileTitle } from "../utils/constants.js"
 
 class Api {
   constructor({ baseUrl }) {
@@ -30,10 +30,6 @@ class Api {
       }
     })
       .then(res => res.json())
-      .then((result) => {
-        profileName.textContent = result.name;
-        profileTitle.textContent = result.about;
-      })
   }
 
   setProfileInfo(item) {
@@ -50,9 +46,27 @@ class Api {
     })
   }
 
-  addNewCard() {
+  addNewCard(card) {
     return fetch(`${this.baseUrl}/cards`, {
       method: "POST",
+      headers: {
+        authorization: "8e942d63-a4ca-4642-8de3-5514e3f09ba0",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(card)
+    })
+      .then(res => {
+        if (res.ok) {
+          return res.json();
+        }
+        return Promise.reject(`Error: ${res.status}`);
+      })
+
+  }
+
+  deleteCard(id) {
+    return fetch(`${this.baseUrl}/cards/${id}`, {
+      method: "DELETE",
       headers: {
         authorization: "8e942d63-a4ca-4642-8de3-5514e3f09ba0",
         "Content-Type": "application/json"
@@ -60,17 +74,13 @@ class Api {
     })
       .then(res => {
         if (res.ok) {
-          return res.json()
+          return res.json();
         }
         return Promise.reject(`Error: ${res.status}`);
       })
-
-  }
   }
 
-  deleteCard() {
 
-  }
 
   cardToggleLike() {
 
@@ -82,27 +92,5 @@ class Api {
 
 }
 
-// const api = new Api({
-//   baseUrl: "https://around.nomoreparties.co/v1/group-10",
-//   headers: {
-//     authorization: "8e942d63-a4ca-4642-8de3-5514e3f09ba0",
-//     "Content-Type": "application/json"
-//   }
-// });
 
 export default Api
-
-// function getUserInfo() {
-//   return fetch("https://around.nomoreparties.co/v1/group-10/users/me", {
-//     method: "GET",
-//     headers: {
-//       authorization: "8e942d63-a4ca-4642-8de3-5514e3f09ba0",
-//       "Content-Type": "application/json"
-//     }
-//   })
-//     .then(res => res.json())
-//     .then((result) => {
-//     console.log(result.name);
-//     console.log(result.about);
-//     })
-// }
