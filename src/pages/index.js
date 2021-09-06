@@ -24,13 +24,8 @@ const userInfo = new UserInfo({ nameSelector: profileName, titleSelector: profil
 
 api.getProfileInfo()
   .then((userData) => {
-    userInfo.setUserInfo({ name: userData.name, title: userData.about, id: userData._id, avatar: userData.avatar})
-    const currentUser = userInfo.getUserInfo();
-    
+    userInfo.setUserInfo({ name: userData.name, title: userData.about, id: userData._id, avatar: userData.avatar})   
   })
-  
-  const currentUser = userInfo.getUserInfo();
-    
 
 //Edit Profile
 

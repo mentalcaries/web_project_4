@@ -5,6 +5,13 @@ class Api {
     this.baseUrl = baseUrl;
   }
 
+  _checkRes(res) {
+    if (res.ok) {
+      return res.json()
+    }
+    return Promise.reject(`Error: ${res.status}`);
+  }
+
   getInitialCards() {
     return fetch(`${this.baseUrl}/cards`, {
       headers: {
@@ -12,12 +19,7 @@ class Api {
         "Content-Type": "application/json"
       }
     })
-      .then(res => {
-        if (res.ok) {
-          return res.json()
-        }
-        return Promise.reject(`Error: ${res.status}`);
-      })
+      .then((res) => this._checkRes(res))
 
   }
 
@@ -29,7 +31,7 @@ class Api {
         "Content-Type": "application/json"
       }
     })
-      .then(res => res.json())
+      .then((res) => this._checkRes(res))
   }
 
   setProfileInfo(item) {
@@ -43,6 +45,7 @@ class Api {
         name: item.name,
         about: item.title
       })
+        .then((res) => this._checkRes(res))
     })
   }
 
@@ -55,12 +58,7 @@ class Api {
       },
       body: JSON.stringify(card)
     })
-      .then(res => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Error: ${res.status}`);
-      })
+      .then((res) => this._checkRes(res))
 
   }
 
@@ -72,18 +70,31 @@ class Api {
         "Content-Type": "application/json"
       }
     })
-      .then(res => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Error: ${res.status}`);
-      })
+      .then((res) => this._checkRes(res))
   }
 
 
 
-  cardToggleLike() {
+  addCardLike(id) {
+    return fetch(`${this.baseUrl}/cards/likes/${id}`, {
+      method: "PUT",
+      headers: {
+        authorization: "8e942d63-a4ca-4642-8de3-5514e3f09ba0",
+        "Content-Type": "application/json"
+      }
+    })
+      .then((res) => this._checkRes(res))
+  }
 
+  removeCardLike(id) {
+    return fetch(`${this.baseUrl}/cards/likes/${id}`, {
+      method: "DELETE",
+      headers: {
+        authorization: "8e942d63-a4ca-4642-8de3-5514e3f09ba0",
+        "Content-Type": "application/json"
+      }
+    })
+      .then((res) => this._checkRes(res))
   }
 
   updateProfilePicture() {

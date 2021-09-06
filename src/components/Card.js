@@ -10,7 +10,7 @@ const api = new Api({
 });
 
 class Card {
-  constructor(data, {currentUserId}, cardTemplate, { handleCardClick }) {
+  constructor(data, { currentUserId }, cardTemplate, { handleCardClick }) {
     this._text = data.name;
     this._link = data.link;
     this._cardId = data._id
@@ -19,6 +19,7 @@ class Card {
     this.likes = data.likes;
     this.owner = data.owner
     this.deleteButton = this._cardTemplate.querySelector(".card__delete-button")
+    this.likeButton = this._cardTemplate.querySelector(".card__like-button");
     this._ownerId = data.owner._id;
     this._currentUserId = currentUserId
 
@@ -28,17 +29,38 @@ class Card {
     return this._cardTemplate.querySelector(".card").cloneNode(true);
   }
 
+
+
+  _checkLikeStatus() {
+    const isLiked = this.likes.some((like) => like._id === this._currentUserId);
+
+    if (isLiked) {
+      this.likeButton.classList.add("card__like-button_active")
+    }
+    
+  }
+
+
   _setEventListeners() {
     const likeButton = this._card.querySelector(".card__like-button");
     const deleteButton = this._card.querySelector(".card__delete-button");
 
-    
     //Like Card
+
     likeButton.addEventListener("click", (evt) => {
-      
-      evt.target.classList.toggle("card__like-button_active");
+      api.addCardLike(this._cardId)
+        .then((evt) => {
+          evt.target.classList.add("card__like-button_active");
+          this._card.querySelector(".card__like-count").textContent = this.likes.length + 1;
+        })
     });
-    
+
+    // //Unlike Card
+    // likeButton.addEventListener("click", (evt) => {
+    //   api.removeCardLike(this._cardId)
+    //   .then(()=>{evt.target.classList.remove("card__like-button_active")});
+    // });
+
     //Delete Card
 
     //Hide button if card does not belong to current user
@@ -68,6 +90,7 @@ class Card {
     this._card = this._getTemplate();
     this._cardImage = this._card.querySelector(".card__image");
     this._setEventListeners();
+    this._checkLikeStatus();
     const cardTitle = this._card.querySelector(".card__title");
     cardTitle.textContent = this._text;
     this._cardImage.src = this._link;
@@ -75,7 +98,7 @@ class Card {
     this._cardImage.addEventListener("click", this._handleCardClick)
     this._card.querySelector(".card__like-count").textContent = this.likes.length;
 
-  
+
 
     return this._card;
   }
