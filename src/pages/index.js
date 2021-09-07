@@ -24,7 +24,7 @@ const userInfo = new UserInfo({ nameSelector: profileName, titleSelector: profil
 
 api.getProfileInfo()
   .then((userData) => {
-    userInfo.setUserInfo({ name: userData.name, title: userData.about, id: userData._id, avatar: userData.avatar})   
+    userInfo.setUserInfo({ name: userData.name, title: userData.about, id: userData._id, avatar: userData.avatar })
   })
 
 //Edit Profile
@@ -65,10 +65,11 @@ api.getInitialCards().then((cards) => {
 
 function createCard(item, template) {
   const currentUser = userInfo.getUserInfo();
-   return new Card(item, {currentUserId: currentUser.id}, template, {
+  return new Card(item, { currentUserId: currentUser.id }, template, {
     handleCardClick: () => {
       imagePopup.open({ link: item.link, name: item.name });
-      }
+    },
+    handleLikeClick:(liked)=> api.changeCardStatus(item._id, liked)
   })
 }
 

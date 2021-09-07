@@ -1,27 +1,21 @@
 import PopupConfirmDelete from "./PopupConfirmDelete.js";
-import Api from "./Api.js";
 
-const api = new Api({
-  baseUrl: "https://around.nomoreparties.co/v1/group-10",
-  headers: {
-    authorization: "8e942d63-a4ca-4642-8de3-5514e3f09ba0",
-    "Content-Type": "application/json"
-  }
-});
 
 class Card {
-  constructor(data, { currentUserId }, cardTemplate, { handleCardClick }) {
+  constructor(data, { currentUserId }, cardTemplate, { handleCardClick, handleLikeClick }) {
     this._text = data.name;
     this._link = data.link;
+    this._cardData = data;
     this._cardId = data._id
     this._cardTemplate = cardTemplate;
     this._handleCardClick = handleCardClick;
+    this._handleLikeClick = handleLikeClick;
     this.likes = data.likes;
     this.owner = data.owner
     this.deleteButton = this._cardTemplate.querySelector(".card__delete-button")
-    this.likeButton = this._cardTemplate.querySelector(".card__like-button");
     this._ownerId = data.owner._id;
-    this._currentUserId = currentUserId
+    this._currentUserId = currentUserId;
+
 
   }
 
@@ -30,17 +24,25 @@ class Card {
   }
 
 
-
   _checkLikeStatus() {
     const isLiked = this.likes.some((like) => like._id === this._currentUserId);
-
-    if (isLiked) {
-      this.likeButton.classList.add("card__like-button_active")
-    }
-    
+    return isLiked;    
   }
 
 
+  _showLikeStatus(){
+    this._countLikes();
+    if(this._checkLikeStatus()){
+      this._card.querySelector(".card__like-button").classList.add("card__like-button_active")
+    }
+  }
+
+  
+  _countLikes(){
+    this._card.querySelector(".card__like-count").textContent = this.likes.length;
+  }
+
+  
   _setEventListeners() {
     const likeButton = this._card.querySelector(".card__like-button");
     const deleteButton = this._card.querySelector(".card__delete-button");
@@ -48,11 +50,12 @@ class Card {
     //Like Card
 
     likeButton.addEventListener("click", (evt) => {
-      api.addCardLike(this._cardId)
-        .then((evt) => {
-          evt.target.classList.add("card__like-button_active");
-          this._card.querySelector(".card__like-count").textContent = this.likes.length + 1;
-        })
+      
+        this._handleLikeClick(this._checkLikeStatus())
+        .then(()=>{
+          evt.target.classList.toggle("card__like-button_active")
+          this._countLikes()
+        })           
     });
 
     // //Unlike Card
@@ -90,13 +93,13 @@ class Card {
     this._card = this._getTemplate();
     this._cardImage = this._card.querySelector(".card__image");
     this._setEventListeners();
-    this._checkLikeStatus();
+    this._showLikeStatus();
     const cardTitle = this._card.querySelector(".card__title");
     cardTitle.textContent = this._text;
     this._cardImage.src = this._link;
     this._cardImage.alt = "Picture of " + this._text;
     this._cardImage.addEventListener("click", this._handleCardClick)
-    this._card.querySelector(".card__like-count").textContent = this.likes.length;
+    
 
 
 

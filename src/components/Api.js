@@ -97,7 +97,13 @@ class Api {
       .then((res) => this._checkRes(res))
   }
 
-  updateProfilePicture() {
+
+  changeCardStatus(id, liked) {
+    if (liked) { this.removeCardLike(id) }
+    else this.addCardLike(id)
+  }
+
+  updateProfilePicture() {ap
 
   }
 
