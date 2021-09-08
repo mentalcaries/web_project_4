@@ -1,40 +1,4 @@
 
-import yosemiteImage from "../images/kirill-pershin-1088404-unsplash.jpg";
-import stLucieImage from "../images/psl.jpg";
-import stuartImage from "../images/stuart.jpg";
-import ftPierceImage from "../images/ftpierce.jpg";
-import chagImage from "../images/chag.jpg";
-import sandoImage from "../images/sando.jpg";
-
-
-export const initialCards = [
-  {
-    name: "Yosemite Valley",
-    link: yosemiteImage
-  },
-  {
-    name: "Port St Lucie",
-    link: stLucieImage
-  },
-  {
-    name: "Stuart",
-    link: stuartImage
-  },
-  {
-    name: "Fort Pierce",
-    link: ftPierceImage
-  },
-  {
-    name: "Chaguaramas Bay Marina",
-    link: chagImage
-  },
-  {
-    name: "San Fernando",
-    link: sandoImage
-  }
-]
-
-
 export const defaultFormSettings = {
   inputSelector: ".popup__field",
   submitButtonSelector: ".popup__save-btn",
@@ -42,10 +6,6 @@ export const defaultFormSettings = {
   inputErrorClass: "popup__field_type_error",
   errorClass: "popup__error_visible"
 }
-
-
-
-
 
 //Modals
 export const popupEditForm = document.querySelector(".popup_type_edit-profile");
@@ -65,6 +25,8 @@ export const CloseButton = document.querySelector(".popup__close-btn")
 //Page Text
 export const profileName = document.querySelector(".profile__name");
 export const profileTitle = document.querySelector(".profile__subtitle");
+export const profileImage = document.querySelector(".profile__image");
+
 
 //Form Text
 export const popupName = popupEditForm.querySelector("#popup_name");

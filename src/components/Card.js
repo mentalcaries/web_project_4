@@ -1,4 +1,3 @@
-import { data } from "autoprefixer";
 import PopupConfirmDelete from "./PopupConfirmDelete.js";
 
 
@@ -44,8 +43,8 @@ class Card {
     this._card.querySelector(".card__like-count").textContent = this.likes.length;
   }
 
-  _updateLikes(data){
-    this._card.querySelector(".card__like-count").textContent = data.likes.length;
+  _updateLikes(card){
+    this._card.querySelector(".card__like-count").textContent = card.likes.length;
   }
 
   _setEventListeners() {
@@ -56,11 +55,10 @@ class Card {
 
     likeButton.addEventListener("click", (evt) => {
      
-      this._handleLikeClick(this._checkLikeStatus())
-        .then((data) => {
+      this._handleLikeClick(evt.target.classList.contains("card__like-button_active"))
+        .then((card) => {
           evt.target.classList.toggle("card__like-button_active")
-          // this._updateLikes(data);
-          this._countLikes();
+            this._updateLikes(card);
         })
     });
 

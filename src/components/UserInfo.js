@@ -20,7 +20,7 @@ class UserInfo {
     this._nameSelector.textContent = name;
     this._titleSelector.textContent = title;
     this._id = id
-    this._avatar = avatar
+    this._avatar.src = avatar
   };
 }
 

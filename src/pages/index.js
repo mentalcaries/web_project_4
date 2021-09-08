@@ -6,7 +6,7 @@ import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import UserInfo from "../components/UserInfo.js";
 import FormValidator from "../components/FormValidator.js";
-import { defaultFormSettings, editFormElement, addCardForm, editProfileButton, addNewPlaceButton, profileName, profileTitle, popupName, popupTitle, template } from "../utils/constants.js";
+import { defaultFormSettings, editFormElement, addCardForm, editProfileButton, addNewPlaceButton, profileName, profileTitle, profileImage, popupName, popupTitle, template } from "../utils/constants.js";
 
 
 //API
@@ -20,7 +20,7 @@ const api = new Api({
 });
 
 //Get User Info
-const userInfo = new UserInfo({ nameSelector: profileName, titleSelector: profileTitle })
+const userInfo = new UserInfo({ nameSelector: profileName, titleSelector: profileTitle, avatar: profileImage})
 
 api.getProfileInfo()
   .then((userData) => {

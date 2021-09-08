@@ -1,5 +1,3 @@
-import { profileName, profileTitle } from "../utils/constants.js"
-
 class Api {
   constructor({ baseUrl }) {
     this.baseUrl = baseUrl;
@@ -103,8 +101,16 @@ class Api {
     else return this.addCardLike(id)
   }
 
-  updateProfilePicture() {ap
-
+  updateProfilePicture() {    
+    return fetch(`${this.baseUrl}/users/me/avatar`, {
+    method: "PATCH",
+    headers: {
+      authorization: "8e942d63-a4ca-4642-8de3-5514e3f09ba0",
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(avatar)
+      .then((res) => this._checkRes(res))
+  })
   }
 
 }
