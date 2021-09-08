@@ -1,8 +1,9 @@
+import { data } from "autoprefixer";
 import PopupConfirmDelete from "./PopupConfirmDelete.js";
 
 
 class Card {
-  constructor(data, { currentUserId }, cardTemplate, { handleCardClick, handleLikeClick }) {
+  constructor(data, { currentUserId }, cardTemplate, { handleCardClick, handleLikeClick, checkCardsData }) {
     this._text = data.name;
     this._link = data.link;
     this._cardData = data;
@@ -10,6 +11,7 @@ class Card {
     this._cardTemplate = cardTemplate;
     this._handleCardClick = handleCardClick;
     this._handleLikeClick = handleLikeClick;
+    this._checkCardsData = checkCardsData;
     this.likes = data.likes;
     this.owner = data.owner
     this.deleteButton = this._cardTemplate.querySelector(".card__delete-button")
@@ -26,23 +28,26 @@ class Card {
 
   _checkLikeStatus() {
     const isLiked = this.likes.some((like) => like._id === this._currentUserId);
-    return isLiked;    
+    return isLiked;
   }
 
 
-  _showLikeStatus(){
+  _showLikeStatus() {
     this._countLikes();
-    if(this._checkLikeStatus()){
+    if (this._checkLikeStatus()) {
       this._card.querySelector(".card__like-button").classList.add("card__like-button_active")
     }
   }
 
-  
-  _countLikes(){
+
+  _countLikes() {
     this._card.querySelector(".card__like-count").textContent = this.likes.length;
   }
 
-  
+  _updateLikes(data){
+    this._card.querySelector(".card__like-count").textContent = data.likes.length;
+  }
+
   _setEventListeners() {
     const likeButton = this._card.querySelector(".card__like-button");
     const deleteButton = this._card.querySelector(".card__delete-button");
@@ -50,12 +55,13 @@ class Card {
     //Like Card
 
     likeButton.addEventListener("click", (evt) => {
-      
-        this._handleLikeClick(this._checkLikeStatus())
-        .then(()=>{
+     
+      this._handleLikeClick(this._checkLikeStatus())
+        .then((data) => {
           evt.target.classList.toggle("card__like-button_active")
-          this._countLikes()
-        })           
+          // this._updateLikes(data);
+          this._countLikes();
+        })
     });
 
     // //Unlike Card
@@ -99,7 +105,7 @@ class Card {
     this._cardImage.src = this._link;
     this._cardImage.alt = "Picture of " + this._text;
     this._cardImage.addEventListener("click", this._handleCardClick)
-    
+
 
 
 

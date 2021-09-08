@@ -57,7 +57,7 @@ const elements = new Section({
 
 //Initial cards on page load
 
-api.getInitialCards().then((cards) => {
+api.getCards().then((cards) => {
   elements.renderItems(cards.reverse());
 })
 
@@ -69,7 +69,8 @@ function createCard(item, template) {
     handleCardClick: () => {
       imagePopup.open({ link: item.link, name: item.name });
     },
-    handleLikeClick:(liked)=> api.changeCardStatus(item._id, liked)
+    handleLikeClick:(liked)=> api.changeCardStatus(item._id, liked),
+    checkCardsData: ()=> api.getCards()
   })
 }
 

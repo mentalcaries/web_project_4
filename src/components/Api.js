@@ -12,7 +12,7 @@ class Api {
     return Promise.reject(`Error: ${res.status}`);
   }
 
-  getInitialCards() {
+  getCards() {
     return fetch(`${this.baseUrl}/cards`, {
       headers: {
         authorization: "8e942d63-a4ca-4642-8de3-5514e3f09ba0",
@@ -99,8 +99,8 @@ class Api {
 
 
   changeCardStatus(id, liked) {
-    if (liked) { this.removeCardLike(id) }
-    else this.addCardLike(id)
+    if (liked) { return this.removeCardLike(id) }
+    else return this.addCardLike(id)
   }
 
   updateProfilePicture() {ap
