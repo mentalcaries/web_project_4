@@ -1,6 +1,7 @@
 class Api {
-  constructor({ baseUrl }) {
-    this.baseUrl = baseUrl;
+  constructor({ baseUrl, headers }) {
+    this._baseUrl = baseUrl;
+    this._headers = headers;
   }
 
   _checkRes(res) {
@@ -11,34 +12,24 @@ class Api {
   }
 
   getCards() {
-    return fetch(`${this.baseUrl}/cards`, {
-      headers: {
-        authorization: "8e942d63-a4ca-4642-8de3-5514e3f09ba0",
-        "Content-Type": "application/json"
-      }
-    })
+    return fetch(`${this._baseUrl}/cards`, {
+      headers: this._headers})
       .then((res) => this._checkRes(res))
 
   }
 
   getProfileInfo() {
-    return fetch(`${this.baseUrl}/users/me`, {
+    return fetch(`${this._baseUrl}/users/me`, {
       method: "GET",
-      headers: {
-        authorization: "8e942d63-a4ca-4642-8de3-5514e3f09ba0",
-        "Content-Type": "application/json"
-      }
+      headers: this._headers
     })
       .then((res) => this._checkRes(res))
   }
 
   setProfileInfo(item) {
-    return fetch(`${this.baseUrl}/users/me`, {
+    return fetch(`${this._baseUrl}/users/me`, {
       method: "PATCH",
-      headers: {
-        authorization: "8e942d63-a4ca-4642-8de3-5514e3f09ba0",
-        "Content-Type": "application/json"
-      },
+      headers: this._headers,
       body: JSON.stringify({
         name: item.name,
         about: item.title
@@ -48,12 +39,9 @@ class Api {
   }
 
   addNewCard(card) {
-    return fetch(`${this.baseUrl}/cards`, {
+    return fetch(`${this._baseUrl}/cards`, {
       method: "POST",
-      headers: {
-        authorization: "8e942d63-a4ca-4642-8de3-5514e3f09ba0",
-        "Content-Type": "application/json"
-      },
+      headers: this._headers,
       body: JSON.stringify(card)
     })
       .then((res) => this._checkRes(res))
@@ -61,12 +49,9 @@ class Api {
   }
 
   deleteCard(id) {
-    return fetch(`${this.baseUrl}/cards/${id}`, {
+    return fetch(`${this._baseUrl}/cards/${id}`, {
       method: "DELETE",
-      headers: {
-        authorization: "8e942d63-a4ca-4642-8de3-5514e3f09ba0",
-        "Content-Type": "application/json"
-      }
+      headers: this._headers,
     })
       .then((res) => this._checkRes(res))
   }
@@ -74,23 +59,17 @@ class Api {
 
 
   addCardLike(id) {
-    return fetch(`${this.baseUrl}/cards/likes/${id}`, {
+    return fetch(`${this._baseUrl}/cards/likes/${id}`, {
       method: "PUT",
-      headers: {
-        authorization: "8e942d63-a4ca-4642-8de3-5514e3f09ba0",
-        "Content-Type": "application/json"
-      }
+      headers: this._headers
     })
       .then((res) => this._checkRes(res))
   }
 
   removeCardLike(id) {
-    return fetch(`${this.baseUrl}/cards/likes/${id}`, {
+    return fetch(`${this._baseUrl}/cards/likes/${id}`, {
       method: "DELETE",
-      headers: {
-        authorization: "8e942d63-a4ca-4642-8de3-5514e3f09ba0",
-        "Content-Type": "application/json"
-      }
+      headers: this._headers
     })
       .then((res) => this._checkRes(res))
   }
@@ -102,12 +81,9 @@ class Api {
   }
 
   updateProfilePicture(avatar) {
-    return fetch(`${this.baseUrl}/users/me/avatar`, {
+    return fetch(`${this._baseUrl}/users/me/avatar`, {
       method: "PATCH",
-      headers: {
-        authorization: "8e942d63-a4ca-4642-8de3-5514e3f09ba0",
-        "Content-Type": "application/json"
-      },
+      headers: this._headers,
       body: JSON.stringify({avatar: avatar})
     })
       .then((res) => this._checkRes(res))

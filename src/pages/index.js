@@ -48,6 +48,7 @@ const userProfile = new PopupWithForm({
       .catch((err) => {
         console.log(err)
       })
+      .finally(userProfile.renderSave(false));
   }
 }, ".popup_type_edit-profile")
 
@@ -68,6 +69,7 @@ const changeProfilePicture = new PopupWithForm({
       .catch((err) => {
         console.log(err)
       })
+      .finally(changeProfilePicture.renderSave(false));
   }
 }, ".popup_type_edit-image")
 
@@ -135,7 +137,8 @@ const renderedCard = new PopupWithForm({
       })
       .catch((err) => {
         console.log(err)
-      });
+      })
+      .finally(renderedCard.renderSave(false));
 
   }
 }, ".popup_type_new-item")
@@ -166,6 +169,7 @@ const confirmDelete = new PopupConfirmDelete({
       .catch((res) => {
         console.log(res)
       })
+      .finally(confirmDelete.renderSave(false));
   }
 }, ".popup_type_confirm-delete");
 
