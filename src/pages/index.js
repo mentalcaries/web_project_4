@@ -29,6 +29,9 @@ function updateProfileInfo() {
     .then((userData) => {
       userInfo.setUserInfo({ name: userData.name, title: userData.about, id: userData._id, avatar: userData.avatar })
     })
+    .catch((err) => {
+      console.log(err)
+    })
 }
 
 //Edit Profile
@@ -36,10 +39,15 @@ function updateProfileInfo() {
 const userProfile = new PopupWithForm({
   submitFormHandler: (item) => {
     api.setProfileInfo(item)
-      .then(userInfo.setUserText({ nameSelector: item.name, titleSelector: item.title }))
-    updateProfileInfo();
-    userProfile.renderSave(true);
-    userProfile.close();
+      .then(() => {
+        userProfile.renderSave(true);
+        userInfo.setUserText({ nameSelector: item.name, titleSelector: item.title })
+        updateProfileInfo();
+        userProfile.close()
+      })
+      .catch((err) => {
+        console.log(err)
+      })
   }
 }, ".popup_type_edit-profile")
 
@@ -51,9 +59,15 @@ const changeProfilePicture = new PopupWithForm({
   submitFormHandler: (item) => {
     api.updateProfilePicture(item.link);
     api.getProfileInfo()
-      .then((userData) => userInfo.setUserAvatar({ avatar: userData.avatar }))
-    changeProfilePicture.renderSave(true)
-    changeProfilePicture.close();
+      .then((userData) => {
+        changeProfilePicture.renderSave(true)
+        userInfo.setUserAvatar({ avatar: userData.avatar })
+        changeProfilePicture.close()
+      })
+
+      .catch((err) => {
+        console.log(err)
+      })
   }
 }, ".popup_type_edit-image")
 
@@ -83,6 +97,8 @@ const elements = new Section({
 
 api.getCards().then((cards) => {
   elements.renderItems(cards.reverse());
+}).catch((err) => {
+  console.log(err)
 })
 
 //Create card and add to DOM
@@ -112,9 +128,15 @@ function generateCard(item) {
 const renderedCard = new PopupWithForm({
   submitFormHandler: (item) => {
     api.addNewCard(item)
-      .then((item) => generateCard(item));
-    renderedCard.renderSave(true);
-    renderedCard.close();
+      .then((item) => {
+        renderedCard.renderSave(true);
+        generateCard(item)
+        renderedCard.close()
+      })
+      .catch((err) => {
+        console.log(err)
+      });
+
   }
 }, ".popup_type_new-item")
 renderedCard.setEventListeners();
@@ -136,8 +158,14 @@ imagePopup.setEventListeners();
 const confirmDelete = new PopupConfirmDelete({
   submitHandler: (card, cardId) => {
     api.deleteCard(cardId)
-      .then(() => card.remove())
-    confirmDelete.close();
+      .then((res) => {
+        confirmDelete.renderSave(true)
+        card.remove()
+        confirmDelete.close()
+      })
+      .catch((res) => {
+        console.log(res)
+      })
   }
 }, ".popup_type_confirm-delete");
 
