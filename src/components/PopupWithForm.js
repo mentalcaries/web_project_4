@@ -16,12 +16,10 @@ class PopupWithForm extends Popup {
   }
 
   setEventListeners() {
-    //add click event listener to the close icon
-    //add submit event handler to submit button
     this._popupForm.addEventListener("submit", (evt) => {
       evt.preventDefault();
       this._submitFormHandler(this._getInputValues());
-      this.close();
+
 
     });
     super.setEventListeners();

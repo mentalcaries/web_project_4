@@ -17,9 +17,17 @@ class UserInfo {
   }
 
   setUserInfo({name, title, id, avatar}) {
+    this.setUserText({name, title})
+    this.setUserAvatar({avatar})
+    this._id = id
+  };
+
+  setUserText({name, title,}) {
     this._nameSelector.textContent = name;
     this._titleSelector.textContent = title;
-    this._id = id
+  };
+
+  setUserAvatar({avatar}){
     this._avatar.src = avatar
   };
 }

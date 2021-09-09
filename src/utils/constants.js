@@ -13,11 +13,14 @@ export const popUpNewItem = document.querySelector(".popup_type_new-item");
 export const popupConfirmDelete = document.querySelector(".popup_type_confirm-delete");
 export const editFormElement = popupEditForm.querySelector(".popup__form");
 export const addCardForm = popUpNewItem.querySelector(".popup__form");
+export const popupChangePicture = document.querySelector(".popup_type_edit-image")
+export const changePictureElement = popupChangePicture.querySelector(".popup__form")
 
 
 //Button variables
 
 export const editProfileButton = document.querySelector(".profile__edit-btn");
+export const editProfilePicture = document.querySelector(".profile__edit-image")
 export const addNewPlaceButton = document.querySelector(".profile__add-button");
 export const CloseButton = document.querySelector(".popup__close-btn")
 

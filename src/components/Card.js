@@ -1,24 +1,22 @@
-import PopupConfirmDelete from "./PopupConfirmDelete.js";
-
-
 class Card {
-  constructor(data, { currentUserId }, cardTemplate, { handleCardClick, handleLikeClick, checkCardsData }) {
+  constructor(data, { currentUserId }, cardTemplate, { handleCardClick, handleLikeClick, checkCardsData, handleDeleteClick }) {
+    this._cardData = data;
     this._text = data.name;
     this._link = data.link;
-    this._cardData = data;
     this._cardId = data._id
-    this._cardTemplate = cardTemplate;
-    this._handleCardClick = handleCardClick;
-    this._handleLikeClick = handleLikeClick;
-    this._checkCardsData = checkCardsData;
     this.likes = data.likes;
     this.owner = data.owner
+    this._cardTemplate = cardTemplate;
     this.deleteButton = this._cardTemplate.querySelector(".card__delete-button")
     this._ownerId = data.owner._id;
     this._currentUserId = currentUserId;
-
-
+    this._handleCardClick = handleCardClick;
+    this._handleLikeClick = handleLikeClick;
+    this._checkCardsData = checkCardsData;
+    this._handleDeleteClick = handleDeleteClick;
   }
+
+
 
   _getTemplate() {
     return this._cardTemplate.querySelector(".card").cloneNode(true);
@@ -43,9 +41,11 @@ class Card {
     this._card.querySelector(".card__like-count").textContent = this.likes.length;
   }
 
-  _updateLikes(card){
+  _updateLikes(card) {
     this._card.querySelector(".card__like-count").textContent = card.likes.length;
   }
+
+
 
   _setEventListeners() {
     const likeButton = this._card.querySelector(".card__like-button");
@@ -54,21 +54,13 @@ class Card {
     //Like Card
 
     likeButton.addEventListener("click", (evt) => {
-     
+
       this._handleLikeClick(evt.target.classList.contains("card__like-button_active"))
         .then((card) => {
           evt.target.classList.toggle("card__like-button_active")
-            this._updateLikes(card);
+          this._updateLikes(card);
         })
     });
-
-    // //Unlike Card
-    // likeButton.addEventListener("click", (evt) => {
-    //   api.removeCardLike(this._cardId)
-    //   .then(()=>{evt.target.classList.remove("card__like-button_active")});
-    // });
-
-    //Delete Card
 
     //Hide button if card does not belong to current user
     if (this._currentUserId === this._ownerId) {
@@ -78,18 +70,10 @@ class Card {
     }
 
 
-    deleteButton.addEventListener("click", () => {
-      const confirmDelete = new PopupConfirmDelete({
-        handleDelete: () => {
-          api.deleteCard(this._cardId)
-            .then(() => {
-              this._card.remove()
-            })
-        }
-      }, ".popup_type_confirm-delete")
-      confirmDelete.setEventListeners();
-      confirmDelete.open();
+    deleteButton.addEventListener("click", (evt) => {
+      this._handleDeleteClick(evt)
     })
+
   }
 
   getCard() {
@@ -103,7 +87,7 @@ class Card {
     this._cardImage.src = this._link;
     this._cardImage.alt = "Picture of " + this._text;
     this._cardImage.addEventListener("click", this._handleCardClick)
-
+    const deleteButton = this._card.querySelector(".card__delete-button")
 
 
 

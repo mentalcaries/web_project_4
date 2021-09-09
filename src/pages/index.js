@@ -6,7 +6,8 @@ import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import UserInfo from "../components/UserInfo.js";
 import FormValidator from "../components/FormValidator.js";
-import { defaultFormSettings, editFormElement, addCardForm, editProfileButton, addNewPlaceButton, profileName, profileTitle, profileImage, popupName, popupTitle, template } from "../utils/constants.js";
+import { defaultFormSettings, editFormElement, addCardForm, editProfileButton, addNewPlaceButton, profileName, profileTitle, profileImage, popupName, popupTitle, template, editProfilePicture, changePictureElement, } from "../utils/constants.js";
+import PopupConfirmDelete from "../components/PopupConfirmDelete.js";
 
 
 //API
@@ -20,31 +21,54 @@ const api = new Api({
 });
 
 //Get User Info
-const userInfo = new UserInfo({ nameSelector: profileName, titleSelector: profileTitle, avatar: profileImage})
+const userInfo = new UserInfo({ nameSelector: profileName, titleSelector: profileTitle, avatar: profileImage })
+updateProfileInfo();
 
-api.getProfileInfo()
-  .then((userData) => {
-    userInfo.setUserInfo({ name: userData.name, title: userData.about, id: userData._id, avatar: userData.avatar })
-  })
+function updateProfileInfo() {
+  api.getProfileInfo()
+    .then((userData) => {
+      userInfo.setUserInfo({ name: userData.name, title: userData.about, id: userData._id, avatar: userData.avatar })
+    })
+}
 
 //Edit Profile
 
 const userProfile = new PopupWithForm({
   submitFormHandler: (item) => {
     api.setProfileInfo(item)
-      .then(userInfo.setUserInfo({ nameSelector: item.name, titleSelector: item.title }));
-
+      .then(userInfo.setUserText({ nameSelector: item.name, titleSelector: item.title }))
+    updateProfileInfo();
+    userProfile.renderSave(true);
+    userProfile.close();
   }
 }, ".popup_type_edit-profile")
 
 userProfile.setEventListeners();
 
-editProfileButton.addEventListener("click", (evt) => {
+//Edit Profile Picture
+
+const changeProfilePicture = new PopupWithForm({
+  submitFormHandler: (item) => {
+    api.updateProfilePicture(item.link);
+    api.getProfileInfo()
+      .then((userData) => userInfo.setUserAvatar({ avatar: userData.avatar }))
+    changeProfilePicture.renderSave(true)
+    changeProfilePicture.close();
+  }
+}, ".popup_type_edit-image")
+
+
+editProfilePicture.addEventListener("click", () => {
+  changeProfilePicture.setEventListeners()
+  changeProfilePicture.open();
+})
+
+
+editProfileButton.addEventListener("click", () => {
   const currentUser = userInfo.getUserInfo();
   popupName.value = currentUser.name;
   popupTitle.value = currentUser.title;
   userProfile.open();
-
 });
 
 
@@ -69,8 +93,12 @@ function createCard(item, template) {
     handleCardClick: () => {
       imagePopup.open({ link: item.link, name: item.name });
     },
-    handleLikeClick:(liked)=> api.changeCardStatus(item._id, liked),
-    checkCardsData: ()=> api.getCards()
+    handleLikeClick: (liked) => api.changeCardStatus(item._id, liked),
+    checkCardsData: () => api.getCards(),
+    handleDeleteClick: (evt) => {
+      confirmDelete.setEventListeners();
+      confirmDelete.open(item._id, evt)
+    }
   })
 }
 
@@ -85,15 +113,11 @@ const renderedCard = new PopupWithForm({
   submitFormHandler: (item) => {
     api.addNewCard(item)
       .then((item) => generateCard(item));
-
+    renderedCard.renderSave(true);
+    renderedCard.close();
   }
 }, ".popup_type_new-item")
 renderedCard.setEventListeners();
-
-
-
-
-
 
 
 //New Item Modal
@@ -107,10 +131,23 @@ addNewPlaceButton.addEventListener("click", (evt) => {
 const imagePopup = new PopupWithImage(".popup_type_picture");
 imagePopup.setEventListeners();
 
+//Confirm Delete
+
+const confirmDelete = new PopupConfirmDelete({
+  submitHandler: (card, cardId) => {
+    api.deleteCard(cardId)
+      .then(() => card.remove())
+    confirmDelete.close();
+  }
+}, ".popup_type_confirm-delete");
+
+
 
 const editFormValidator = new FormValidator(defaultFormSettings, editFormElement);
 const newItemValidator = new FormValidator(defaultFormSettings, addCardForm);
+const changeProfileValidator = new FormValidator(defaultFormSettings, changePictureElement)
 
 editFormValidator.enableValidation();
 newItemValidator.enableValidation();
+changeProfileValidator.enableValidation();
 

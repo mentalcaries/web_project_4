@@ -43,8 +43,8 @@ class Api {
         name: item.name,
         about: item.title
       })
-        .then((res) => this._checkRes(res))
     })
+    .then((res) => this._checkRes(res))
   }
 
   addNewCard(card) {
@@ -101,17 +101,19 @@ class Api {
     else return this.addCardLike(id)
   }
 
-  updateProfilePicture() {    
+  updateProfilePicture(avatar) {
     return fetch(`${this.baseUrl}/users/me/avatar`, {
-    method: "PATCH",
-    headers: {
-      authorization: "8e942d63-a4ca-4642-8de3-5514e3f09ba0",
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify(avatar)
+      method: "PATCH",
+      headers: {
+        authorization: "8e942d63-a4ca-4642-8de3-5514e3f09ba0",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({avatar: avatar})
+    })
       .then((res) => this._checkRes(res))
-  })
+
   }
+  
 
 }
 

@@ -2,6 +2,7 @@ class Popup {
   constructor(popupSelector) {
     this._popupElement = document.querySelector(popupSelector);
     this._handleEscClose = this._handleEscClose.bind(this);
+    this._submitButton = this._popupElement.querySelector(".popup__save-btn")
   }
 
   open() {
@@ -29,12 +30,17 @@ class Popup {
       this.close(evt.target);
     })
 
-
     //Overlay
     this._popupElement.addEventListener("click", (evt) => {
       if (evt.target.closest(".popup__container")) return
       this.close();
     })
+  }
+
+  renderSave(isSaving){
+    if(isSaving){
+      this._submitButton.textContent = "Saving...";
+    }
   }
 }
 

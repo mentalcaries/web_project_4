@@ -1,19 +1,23 @@
 import Popup from "./Popup.js";
 
 class PopupConfirmDelete extends Popup {
-  constructor({ handleDelete }, popupSelector) {
+  constructor({submitHandler}, popupSelector) {
     super(popupSelector);
-    this._handleDelete = handleDelete;
     this._submitButton = this._popupElement.querySelector(".popup__save-btn");
+    this._submitHandler = submitHandler;
+  }
+
+  open(cardId,evt){
+    this._card = evt.target.parentElement;
+    this._cardId = cardId;
+    super.open()
   }
 
   setEventListeners() {
-    //add click event listener to the close icon
-    //add submit event handler to submit button
     this._submitButton.addEventListener("click", (evt) => {
       evt.preventDefault();
-      this._handleDelete();
-      this.close();
+      super.renderSave(true);
+      this._submitHandler(this._card, this._cardId);
 
     });
     super.setEventListeners();

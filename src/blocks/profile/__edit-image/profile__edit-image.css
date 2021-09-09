@@ -14,7 +14,7 @@
   background-repeat: no-repeat;
   border: none;
   cursor: pointer;
-  z-index: 5;
+  
   opacity: 0;
   transition: linear 0.3s;
 }
