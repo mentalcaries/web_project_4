@@ -58,9 +58,8 @@ const userProfile = new PopupWithForm({
   submitFormHandler: (item) => {
     api.setProfileInfo(item)
       .then((userData) => {
-        userInfo.setUserText({name: userData.name, title: userData.about});
+        userInfo.setUserText({ name: userData.name, title: userData.about });
         userProfile.close()
-        editFormValidator.resetValidation()
       })
       .catch((err) => {
         console.log(err)
@@ -86,11 +85,11 @@ const changeProfilePicture = new PopupWithForm({
       })
   }
 }, ".popup_type_edit-image")
-  changeProfilePicture.setEventListeners()
+changeProfilePicture.setEventListeners()
 
 
 editProfilePicture.addEventListener("click", () => {
-  editFormValidator.resetValidation()
+  changeProfileValidator.resetValidation()
   changeProfilePicture.open();
 })
 
@@ -147,7 +146,7 @@ renderedCard.setEventListeners();
 //New Item Modal
 //Click add button
 addNewPlaceButton.addEventListener("click", (evt) => {
-  editFormValidator.resetValidation()
+  newItemValidator.resetValidation()
   renderedCard.open();
 });
 
