@@ -10,6 +10,19 @@ import { defaultFormSettings, editFormElement, addCardForm, editProfileButton, a
 import PopupConfirmDelete from "../components/PopupConfirmDelete.js";
 
 
+
+//Valdation for all forms
+
+const editFormValidator = new FormValidator(defaultFormSettings, editFormElement);
+const newItemValidator = new FormValidator(defaultFormSettings, addCardForm);
+const changeProfileValidator = new FormValidator(defaultFormSettings, changePictureElement)
+
+editFormValidator.enableValidation();
+newItemValidator.enableValidation();
+changeProfileValidator.enableValidation();
+
+
+
 //API
 
 const api = new Api({
@@ -22,33 +35,36 @@ const api = new Api({
 
 //Get User Info
 const userInfo = new UserInfo({ nameSelector: profileName, titleSelector: profileTitle, avatar: profileImage })
-updateProfileInfo();
 
-function updateProfileInfo() {
-  api.getProfileInfo()
-    .then((userData) => {
-      userInfo.setUserInfo({ name: userData.name, title: userData.about, id: userData._id, avatar: userData.avatar })
-    })
-    .catch((err) => {
-      console.log(err)
-    })
-}
+const elements = new Section({
+  renderer: generateCard
+}, ".elements")
+
+
+Promise.all([api.getProfileInfo(), api.getCards()])
+  .then((res) => {
+    const [userData, cardData] = res
+    userInfo.setUserInfo({ name: userData.name, title: userData.about, id: userData._id, avatar: userData.avatar });
+    elements.renderItems(cardData.reverse());
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+
 
 //Edit Profile
 
 const userProfile = new PopupWithForm({
   submitFormHandler: (item) => {
     api.setProfileInfo(item)
-      .then(() => {
-        userProfile.renderSave(true);
-        userInfo.setUserText({ nameSelector: item.name, titleSelector: item.title })
-        updateProfileInfo();
+      .then((userData) => {
+        userInfo.setUserText({name: userData.name, title: userData.about});
         userProfile.close()
+        editFormValidator.resetValidation()
       })
       .catch((err) => {
         console.log(err)
       })
-      .finally(userProfile.renderSave(false));
   }
 }, ".popup_type_edit-profile")
 
@@ -58,50 +74,35 @@ userProfile.setEventListeners();
 
 const changeProfilePicture = new PopupWithForm({
   submitFormHandler: (item) => {
-    api.updateProfilePicture(item.link);
-    api.getProfileInfo()
+    api.updateProfilePicture(item.link)
       .then((userData) => {
-        changeProfilePicture.renderSave(true)
         userInfo.setUserAvatar({ avatar: userData.avatar })
         changeProfilePicture.close()
+        editFormValidator.resetValidation()
       })
 
       .catch((err) => {
         console.log(err)
       })
-      .finally(changeProfilePicture.renderSave(false));
   }
 }, ".popup_type_edit-image")
+  changeProfilePicture.setEventListeners()
 
 
 editProfilePicture.addEventListener("click", () => {
-  changeProfilePicture.setEventListeners()
+  editFormValidator.resetValidation()
   changeProfilePicture.open();
 })
 
 
 editProfileButton.addEventListener("click", () => {
+  editFormValidator.resetValidation()
   const currentUser = userInfo.getUserInfo();
   popupName.value = currentUser.name;
   popupTitle.value = currentUser.title;
   userProfile.open();
 });
 
-
-//Elements Section
-
-const elements = new Section({
-  renderer: generateCard
-}, ".elements")
-
-
-//Initial cards on page load
-
-api.getCards().then((cards) => {
-  elements.renderItems(cards.reverse());
-}).catch((err) => {
-  console.log(err)
-})
 
 //Create card and add to DOM
 
@@ -114,7 +115,6 @@ function createCard(item, template) {
     handleLikeClick: (liked) => api.changeCardStatus(item._id, liked),
     checkCardsData: () => api.getCards(),
     handleDeleteClick: (evt) => {
-      confirmDelete.setEventListeners();
       confirmDelete.open(item._id, evt)
     }
   })
@@ -131,14 +131,13 @@ const renderedCard = new PopupWithForm({
   submitFormHandler: (item) => {
     api.addNewCard(item)
       .then((item) => {
-        renderedCard.renderSave(true);
         generateCard(item)
         renderedCard.close()
+        editFormValidator.resetValidation()
       })
       .catch((err) => {
         console.log(err)
       })
-      .finally(renderedCard.renderSave(false));
 
   }
 }, ".popup_type_new-item")
@@ -148,6 +147,7 @@ renderedCard.setEventListeners();
 //New Item Modal
 //Click add button
 addNewPlaceButton.addEventListener("click", (evt) => {
+  editFormValidator.resetValidation()
   renderedCard.open();
 });
 
@@ -162,24 +162,14 @@ const confirmDelete = new PopupConfirmDelete({
   submitHandler: (card, cardId) => {
     api.deleteCard(cardId)
       .then((res) => {
-        confirmDelete.renderSave(true)
         card.remove()
         confirmDelete.close()
       })
       .catch((res) => {
         console.log(res)
       })
-      .finally(confirmDelete.renderSave(false));
+
   }
 }, ".popup_type_confirm-delete");
-
-
-
-const editFormValidator = new FormValidator(defaultFormSettings, editFormElement);
-const newItemValidator = new FormValidator(defaultFormSettings, addCardForm);
-const changeProfileValidator = new FormValidator(defaultFormSettings, changePictureElement)
-
-editFormValidator.enableValidation();
-newItemValidator.enableValidation();
-changeProfileValidator.enableValidation();
+confirmDelete.setEventListeners();
 

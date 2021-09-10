@@ -37,12 +37,6 @@ class Popup {
     })
   }
 
-  renderSave(isSaving){
-    if(isSaving){
-      this._submitButton.textContent = "Saving...";
-    }
-    this._submitButton.textContent = this._submitButton.name;
-  }
 }
 
 export default Popup;

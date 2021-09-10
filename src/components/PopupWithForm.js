@@ -18,6 +18,7 @@ class PopupWithForm extends Popup {
   setEventListeners() {
     this._popupForm.addEventListener("submit", (evt) => {
       evt.preventDefault();
+      this._submitButton.textContent = "Saving...";
       this._submitFormHandler(this._getInputValues());
 
 
@@ -25,12 +26,15 @@ class PopupWithForm extends Popup {
     super.setEventListeners();
   }
 
+  open(){
+    this._submitButton.textContent = this._submitButton.name;
+    super.open();
+  }
+
   close() {
     this._popupForm.reset();
     super.close();
-    //modify to reset the form once popup is closed
-  }
-
+    }
 }
 
 export default PopupWithForm;

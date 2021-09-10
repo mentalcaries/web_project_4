@@ -8,6 +8,7 @@ class PopupConfirmDelete extends Popup {
   }
 
   open(cardId,evt){
+    this._submitButton.textContent = this._submitButton.name;
     this._card = evt.target.parentElement;
     this._cardId = cardId;
     super.open()
@@ -16,6 +17,7 @@ class PopupConfirmDelete extends Popup {
   setEventListeners() {
     this._submitButton.addEventListener("click", (evt) => {
       evt.preventDefault();
+      this._submitButton.textContent = "Deleting...";
       this._submitHandler(this._card, this._cardId);
 
     });

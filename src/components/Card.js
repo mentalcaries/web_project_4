@@ -17,7 +17,6 @@ class Card {
   }
 
 
-
   _getTemplate() {
     return this._cardTemplate.querySelector(".card").cloneNode(true);
   }
@@ -46,7 +45,6 @@ class Card {
   }
 
 
-
   _setEventListeners() {
     const likeButton = this._card.querySelector(".card__like-button");
     const deleteButton = this._card.querySelector(".card__delete-button");
@@ -54,12 +52,12 @@ class Card {
     //Like Card
 
     likeButton.addEventListener("click", (evt) => {
-
       this._handleLikeClick(evt.target.classList.contains("card__like-button_active"))
         .then((card) => {
           evt.target.classList.toggle("card__like-button_active")
           this._updateLikes(card);
         })
+        .catch((err)=>console.log(`Something went wrong: ${err}`))
     });
 
     //Hide button if card does not belong to current user
@@ -71,10 +69,10 @@ class Card {
 
 
     deleteButton.addEventListener("click", (evt) => {
-      this._handleDeleteClick(evt)
+        this._handleDeleteClick(evt)
     })
-
   }
+
 
   getCard() {
 
@@ -87,7 +85,6 @@ class Card {
     this._cardImage.src = this._link;
     this._cardImage.alt = "Picture of " + this._text;
     this._cardImage.addEventListener("click", this._handleCardClick)
-    const deleteButton = this._card.querySelector(".card__delete-button")
 
 
 
